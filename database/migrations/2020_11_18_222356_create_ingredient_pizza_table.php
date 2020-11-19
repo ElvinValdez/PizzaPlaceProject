@@ -15,8 +15,8 @@ class CreateIngredientPizzaTable extends Migration
     {
         Schema::create('ingredient_pizza', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('pizza_id');
-            $table->unsignedInteger('ingredient_id');
+            $table->unsignedBigInteger('pizza_id');
+            $table->unsignedBigInteger('ingredient_id');
             $table->float('quantity');
             $table->timestamps();
 

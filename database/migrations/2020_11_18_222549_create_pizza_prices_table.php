@@ -18,7 +18,7 @@ class CreatePizzaPricesTable extends Migration
             $table->timestamp('date')->nullable();
             $table->float('price');
             $table->timestamps();
-            $table->unsignedInteger('pizza_id');
+            $table->unsignedBigInteger('pizza_id');
 
             $table->foreign('pizza_id')->references('id')->on('pizzas')
                   ->onDelete('cascade')->onUpdate('cascade');

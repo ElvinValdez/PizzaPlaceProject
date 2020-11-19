@@ -17,7 +17,7 @@ class CreateIngredientsTable extends Migration
             $table->id();
             $table->string('name', 127);
             $table->text('description')->nullable();
-            $table->unsignedInteger('unit_id');
+            $table->unsignedBigInteger('unit_id');
             $table->timestamps();
 
             $table->foreign('unit_id')->references('id')->on('units')

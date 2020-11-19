@@ -17,7 +17,7 @@ class CreatePizzasTable extends Migration
             $table->id();
             $table->string('name', 127);
             $table->text('description');
-            $table->unsignedInteger('size_id');
+            $table->unsignedBigInteger('size_id');
             $table->timestamps();
 
             $table->foreign('size_id')->references('id')->on('sizes')

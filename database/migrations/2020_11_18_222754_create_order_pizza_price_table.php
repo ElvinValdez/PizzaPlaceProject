@@ -15,8 +15,8 @@ class CreateOrderPizzaPriceTable extends Migration
     {
         Schema::create('order_pizza_price', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('pizza_price_id');
-            $table->unsignedInteger('order_id');
+            $table->unsignedBigInteger('pizza_price_id');
+            $table->unsignedBigInteger('order_id');
             $table->timestamps();
             $table->integer('quantity')->default(1);
 
