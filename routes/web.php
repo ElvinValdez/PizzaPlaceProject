@@ -41,3 +41,10 @@ Route::get('/drink/edit', function() {
     return view('drink.edit');
 });
 
+Route::get('/ingredient/create', function() {
+    return view('ingredient.create');
+});
+
+Route::get('/ingredient/edit', function() {
+    return view('ingredient.edit');
+});
