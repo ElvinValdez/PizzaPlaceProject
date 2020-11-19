@@ -17,7 +17,7 @@ class CreateDrinkPricesTable extends Migration
             $table->id();
             $table->timestamp('date')->nullable();
             $table->float('price');
-            $table->unsignedInteger('drink_id');
+            $table->unsignedBigInteger('drink_id');
             $table->timestamps();
 
             $table->foreign('drink_id')->references('id')->on('drinks')
