@@ -61,7 +61,7 @@
 									</div>
 									<br><br><br>
 									<div class="col s12 offset-s3">
-										<h6>don't have an account?<a href="{{route('register')}}"> Sign up</a></h6>
+										<h6>Don't have an account?<a href="{{route('register')}}"> Sign up</a></h6>
 									</div>
 								</div>
 							</form>
