@@ -48,3 +48,51 @@ Route::get('/ingredient/create', function() {
 Route::get('/ingredient/edit', function() {
     return view('ingredient.edit');
 });
+
+Route::get('/order/create', function() {
+    return view('order.create');
+});
+
+Route::get('/pizza/create', function() {
+    return view('pizza.create');
+});
+
+Route::get('/pizza/edit', function() {
+    return view('pizza.edit');
+});
+
+Route::get('/pizza_ingredient/id/create', function() {
+    return view('pizza_ingredient.create');
+});
+
+Route::get('/price/create', function() {
+    return view('price.create');
+});
+
+Route::get('/price/edit', function() {
+    return view('price.edit');
+});
+
+Route::get('/size/create', function() {
+    return view('size.create');
+});
+
+Route::get('/size/edit', function() {
+    return view('size.edit');
+});
+
+Route::get('/unit/create', function() {
+    return view('unit.create');
+});
+
+Route::get('/unit/edit', function() {
+    return view('unit.edit');
+});
+
+Route::get('/user/create', function() {
+    return view('user.create');
+});
+
+Route::get('/user/edit', function() {
+    return view('user.edit');
+});
