@@ -75,8 +75,15 @@
 									</div>
 								</div>
 								<div class="row">
+									<div class="input-field col s6 offset-s3">
+										<input id="password_confirm" name="password_confirmation" type="password" class="validate @error('password_confirm') is-invalid @enderror">
+										<label for="password_confirm">Password confirm</label>
+										@include ('layouts.error', ['input' => 'password_confirm'])
+									</div>
+								</div>
+								<div class="row">
 									<div class="col s12 center-align">
-										<button class="btn waves-effect waves-light green darken-2" type="submit" name="action">login
+										<button class="btn waves-effect waves-light green darken-2" type="submit" name="action">register
 											<i class="material-icons right">send</i>
 										</button>
 									</div>
