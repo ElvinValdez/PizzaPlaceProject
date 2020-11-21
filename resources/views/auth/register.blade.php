@@ -1,152 +1,133 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pizza Place</title>
+	<link rel="icon"   href="{{asset('img/pii.png')}}" type="image/png" />
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="icon" type="image/png" href="{{asset('/img/favicon.png')}}" />
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+	<!-- Compiled and minified CSS -->
+	<link type="text/css" rel="stylesheet" href="{{asset('css/materialize.min.css')}}"  media="screen,projection"/>
+	<link rel="stylesheet" href="{{asset('css/styles.css')}}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+	<!--Navbar-->
+	<header>
+		<div class="navbar-fixed">
+			<nav class="green darken-1">
+				<div class="nav-wrapper">
+					<a href="#" class="brand-logo">
+						<img class="responsive-img" src="{{asset('img/logo1.png')}}" width="340">       
+					</a>
+				</div>
+			</nav>
+		</div>
+	</header>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
+	<!--Content-->
+	<main>
+		<div class="container">
+			<div class="row">
+				<br><br><br>
+				<div class="col s6 offset-s3">
+					<div class="card-panel green lighten-5">
+						<div class="row">
+							<form class="col s12" method="POST" action="{{route('register')}}">
+                                @csrf
+                                <div class="row">
+									<div class="input-field col s6 offset-s3">
+										<input id="first_name" type="text" class="validate @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}">
+                                        <label for="first_name">First name</label>
+                                        @include ('layouts.error', ['input' => 'first_name'])
+									</div>
                                 </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                                <div class="row">
+									<div class="input-field col s6 offset-s3">
+										<input id="last_name" type="text" class="validate @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}">
+										<label for="last_name">Last name</label>
+										@include ('layouts.error', ['input' => 'last_name'])
+									</div>
+								</div>
+								<div class="row">
+									<div class="input-field col s6 offset-s3">
+										<input id="username" type="text" class="validate @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}">
+										<label for="username">Username</label>
+										@include ('layouts.error', ['input' => 'username'])
+									</div>
+                                </div>
+                                <div class="row">
+									<div class="input-field col s6 offset-s3">
+										<input id="email" type="email" class="validate @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
+										<label for="email">Email</label>
+										@include ('layouts.error', ['input' => 'email'])
+									</div>
+								</div>
+								<div class="row">
+									<div class="input-field col s6 offset-s3">
+										<input id="password" name="password" type="password" class="validate @error('password') is-invalid @enderror">
+										<label for="password">Password</label>
+										@include ('layouts.error', ['input' => 'password'])
+									</div>
+								</div>
+								<div class="row">
+									<div class="col s12 center-align">
+										<button class="btn waves-effect waves-light green darken-2" type="submit" name="action">login
+											<i class="material-icons right">send</i>
+										</button>
+									</div>
+									<br><br><br>
+									<div class="col s12 offset-s3">
+										<h6>Already have an account?<a href="{{route('login')}}"> Sign in</a></h6>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<br><br><br>
+				</div>
+			</div>
 
-        <main class="py-4">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header">{{ __('Register') }}</div>
-            
-                            <div class="card-body">
-                                <form method="POST" action="{{ route('register') }}">
-                                    @csrf
-            
-                                    <div class="form-group row">
-                                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-            
-                                        <div class="col-md-6">
-                                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-            
-                                            @error('name')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group row">
-                                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-            
-                                        <div class="col-md-6">
-                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-            
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group row">
-                                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-            
-                                        <div class="col-md-6">
-                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-            
-                                            @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group row">
-                                        <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-            
-                                        <div class="col-md-6">
-                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group row mb-0">
-                                        <div class="col-md-6 offset-md-4">
-                                            <button type="submit" class="btn btn-primary">
-                                                {{ __('Register') }}
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
+		</div>
+
+	</main>
+
+	<!--Footer-->
+	<footer class="page-footer red darken-1">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 m12">
+					<h5 class="white-text">Pizza Place</h5>
+					<p class="grey-text text-lighten-4">Blue Rise, Mabbettsville, New York, 12959-7229, US</p>
+				</div>
+				<div class="col l4 offset-l2 s12">
+					<h5 class="white-text">Contact</h5>
+					<ul>
+						<li><h6><i class="tiny material-icons">call</i>(845) 631-2102</h6></li>
+						<li><h6><i class="tiny material-icons">call</i>(917) 148-1304</h6></li> 
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container">
+				© Copyright 2020. All rights reserved. Powered by PizzaPlace
+			</div>
+		</div>
+	</footer> 
+
+	<!--JavaScript at end of body for optimized loading-->
+	<script type="text/javascript" src="{{asset('js/materialize.min.js')}}"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			M.AutoInit();
+		});	
+	</script> 
+
+
 </body>
 </html>
