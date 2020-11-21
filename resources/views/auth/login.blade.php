@@ -41,14 +41,16 @@
 								@csrf
 								<div class="row">
 									<div class="input-field col s6 offset-s3">
-										<input id="first_name" type="text" class="validate" name="username">
-										<label for="first_name">Username</label>
+										<input id="username" type="text" class="validate @error('username') is-invalid @enderror" name="username" value="{{old('username')}}">
+										<label for="username">Username</label>
+										@include ('layouts.error', ['input' => 'username'])
 									</div>
 								</div>
 								<div class="row">
 									<div class="input-field col s6 offset-s3">
-										<input id="password" name="password" type="password" class="validate">
+										<input id="password" name="password" type="password" class="validate @error('password') is-invalid @enderror">
 										<label for="password">Password</label>
+										@include ('layouts.error', ['input' => 'password'])
 									</div>
 								</div>
 								<div class="row">
@@ -59,7 +61,7 @@
 									</div>
 									<br><br><br>
 									<div class="col s12 offset-s3">
-										<h6>don't have an account?<a href="{{route('register')}}"> Sign up</a></h6>
+										<h6>Don't have an account?<a href="{{route('register')}}"> Sign up</a></h6>
 									</div>
 								</div>
 							</form>
