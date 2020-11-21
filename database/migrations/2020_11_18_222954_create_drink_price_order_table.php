@@ -15,8 +15,8 @@ class CreateDrinkPriceOrderTable extends Migration
     {
         Schema::create('drink_price_order', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('drink_price_id');
-            $table->unsignedInteger('order_id');
+            $table->unsignedBigInteger('drink_price_id');
+            $table->unsignedBigInteger('order_id');
             $table->timestamps();
             $table->integer('quantity')->default(1);
 
