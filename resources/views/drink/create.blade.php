@@ -2,7 +2,8 @@
 <html>
 <head>
 	<title>Pizza Place</title>
-	<link rel="icon"   href="{{asset('img/pii.png')}}" type="image/png" />
+	<link  rel="icon"   href="{{asset('img/pii.png')}}" type="image/png" />
+
 	<!--Import Google Icon Font-->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="icon" type="image/png" href="{{asset('/img/favicon.png')}}" />
@@ -15,20 +16,23 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 </head>
-<body>
+
+<body background="{{asset('img/1.png')}}">
 	<!--Navbar-->
 	<header>
 		<div class="navbar-fixed">
 			<nav class="green darken-1">
 				<div class="nav-wrapper">
 					<a href="#" class="brand-logo">
-						<img class="responsive-img" src="{{asset('img/logo1.png')}}" width="340">       
+						<img class="responsive-img" src="{{asset('img/logo1.png')}}" width="340">
 					</a>
+					<ul class="right">
+						<li><a href="/logout"><i class="material-icons" style="font-size: 35px;">highlight_off</i></a></li>
+					</ul>
 				</div>
 			</nav>
 		</div>
 	</header>
-
 	<!--Content-->
 	<main>
 		<div class="container">
@@ -37,40 +41,37 @@
 				<div class="col s6 offset-s3">
 					<div class="card-panel green lighten-5">
 						<div class="row">
-							<form class="col s12" method="POST" action="{{route('login')}}">
-								@csrf
+							<form class="col s12">
+								<h4>Drink</h4>
 								<div class="row">
-									<div class="input-field col s6 offset-s3">
-										<input id="first_name" type="text" class="validate" name="username">
-										<label for="first_name">Username</label>
+									<div class="input-field col s6">
+										<input id="name" name="name" type="text" >
+										<label for="name">Name</label>
+									</div>
+									<div class="input-field col s6">
+										<input id="size" name="size" type="text">
+										<label for="size">Size</label>
 									</div>
 								</div>
 								<div class="row">
-									<div class="input-field col s6 offset-s3">
-										<input id="password" name="password" type="password" class="validate">
-										<label for="password">Password</label>
+									<div class="input-field col s12">
+										<textarea id="description" name="description" class="materialize-textarea"></textarea>
+										<label for="description">Description</label>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col s12 center-align">
-										<button class="btn waves-effect waves-light green darken-2" type="submit" name="action">login
-											<i class="material-icons right">send</i>
-										</button>
+										<a href="#" class="waves-effect waves-light btn-small green darken-2"><i class="material-icons">save</i></a>
 									</div>
 									<br><br><br>
-									<div class="col s12 offset-s3">
-										<h6>don't have an account?<a href="{{route('register')}}"> Sign up</a></h6>
-									</div>
 								</div>
 							</form>
 						</div>
 					</div>
-					<br><br><br>
+					<br><br>
 				</div>
 			</div>
-
 		</div>
-
 	</main>
 
 	<!--Footer-->
@@ -85,7 +86,7 @@
 					<h5 class="white-text">Contact</h5>
 					<ul>
 						<li><h6><i class="tiny material-icons">call</i>(845) 631-2102</h6></li>
-						<li><h6><i class="tiny material-icons">call</i>(917) 148-1304</h6></li> 
+						<li><h6><i class="tiny material-icons">call</i>(917) 148-1304</h6></li>
 					</ul>
 				</div>
 			</div>
@@ -95,15 +96,15 @@
 				© Copyright 2020. All rights reserved. Powered by PizzaPlace
 			</div>
 		</div>
-	</footer> 
+	</footer>
 
 	<!--JavaScript at end of body for optimized loading-->
 	<script type="text/javascript" src="{{asset('js/materialize.min.js')}}"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 			M.AutoInit();
-		});	
-	</script> 
+		});
+	</script>
 
 
 </body>
