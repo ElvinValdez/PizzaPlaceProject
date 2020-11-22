@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DrinkPrice;
 use Illuminate\Http\Request;
 
 class DrinkPriceController extends Controller
@@ -23,7 +24,7 @@ class DrinkPriceController extends Controller
      */
     public function create()
     {
-        //
+        return view('price.create');
     }
 
     /**
@@ -56,7 +57,9 @@ class DrinkPriceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $price = DrinkPrice::find($id);
+
+        return view('price.edit', compact('price'));
     }
 
     /**
@@ -68,7 +71,14 @@ class DrinkPriceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $price = $request->get('price');
+
+        $old_price = DrinkPrice::find($id);
+        $old_price->update(['date' =>  now()]);
+
+        $new_price = DrinkPrice::create(['drink_id', $old_price->drink_id, 'price' => $price]);
+
+        return redirect()->route('dashboard');
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Unit;
+use App\Models\Ingredient;
 use Illuminate\Http\Request;
 
 class IngredientController extends Controller
@@ -23,7 +25,8 @@ class IngredientController extends Controller
      */
     public function create()
     {
-        //
+        $units = Unit::all();
+        return view('ingredients.create', compact('units'));
     }
 
     /**
@@ -34,7 +37,10 @@ class IngredientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $ingredient = Ingredient::create($input);
+
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -56,7 +62,10 @@ class IngredientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ingredient = Ingredient::find($id);
+        $units      = Unit::all();
+
+        return view('ingredient.edit', compact('ingredient', 'units'));
     }
 
     /**
@@ -68,7 +77,13 @@ class IngredientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $ingredient = Ingredient::find($id);
+
+        if (!empty($ingredient))
+            $ingredient->update($input);
+
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -79,6 +94,11 @@ class IngredientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $ingredient = Ingredient::find($id);
+
+        if (!empty($ingredient))
+            Ingredient::destroy($id);
+
+        return redirect()->route('dashboard');
     }
 }

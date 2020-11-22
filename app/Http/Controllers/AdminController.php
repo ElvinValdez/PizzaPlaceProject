@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Unit;
+use App\Models\Ingredient;
+use App\Models\Size;
+use App\Models\Drink;
+use App\Models\Pizza;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -13,7 +19,13 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        $users       = User::all();
+        $units       = Unit::all();
+        $ingredients = Ingredient::all();
+        $sizes       = Size::all();
+        $drinks      = Drink::all();
+        $pizzas      = Pizza::all();
+        return view('admin.dashboard', compact('users', 'units', 'ingredients', 'sizes', 'drinks', 'pizzas'));
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Drink;
 use Illuminate\Http\Request;
 
 class DrinkController extends Controller
@@ -23,7 +24,7 @@ class DrinkController extends Controller
      */
     public function create()
     {
-        //
+        return view('drink.create');
     }
 
     /**
@@ -34,7 +35,10 @@ class DrinkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $drink = Drink::create($input);
+
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -56,7 +60,8 @@ class DrinkController extends Controller
      */
     public function edit($id)
     {
-        //
+        $drink = Drink::findOrFail($id);
+        return view('drink.edit', compact('drink'));
     }
 
     /**
@@ -68,7 +73,13 @@ class DrinkController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $drink = Drink::find($id);
+
+        if (!empty($drink))
+            $drink->update($input);
+
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -79,6 +90,11 @@ class DrinkController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $drink = Drink::find($id);
+
+        if (!empty($drink))
+            Ingredient::destroy($id);
+
+        return redirect()->route('dashboard');
     }
 }

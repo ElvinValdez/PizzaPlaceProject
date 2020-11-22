@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Size;
 use Illuminate\Http\Request;
 
 class SizeController extends Controller
@@ -23,7 +24,7 @@ class SizeController extends Controller
      */
     public function create()
     {
-        //
+        return view('size.create');
     }
 
     /**
@@ -34,7 +35,9 @@ class SizeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $size = Size::create($input);
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -56,7 +59,8 @@ class SizeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $size = Size::findOrFail($id);
+        return view('size.edit', compact('size'));
     }
 
     /**
@@ -68,7 +72,13 @@ class SizeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $size  = Size::find($id);
+
+        if (!empty($size))
+            $size->update($input);
+
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -79,6 +89,11 @@ class SizeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $size = Size::find($id);
+
+        if (!empty($size))
+            Size::destroy($id);
+
+        return redirect()->route('dashboard');
     }
 }

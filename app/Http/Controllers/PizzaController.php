@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Size;
+use App\Models\Pizza;
+use App\Models\PizzaPrice;
 use Illuminate\Http\Request;
 
 class PizzaController extends Controller
@@ -23,7 +26,8 @@ class PizzaController extends Controller
      */
     public function create()
     {
-        //
+        $sizes = Size::all();
+        return view('pizza.create', compact('sizes'));
     }
 
     /**
@@ -34,7 +38,11 @@ class PizzaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $pizza = Pizza::create($input);
+        $input['pizza_id'] = $pizza->id;
+        $pizza_price = PizzaPrice::create($input);
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -56,7 +64,10 @@ class PizzaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pizza = Pizza::findOrFail($id);
+        $sizes = Size::all();
+        
+        return view('pizza.edit', compact('pizza', 'sizes'));
     }
 
     /**
@@ -68,7 +79,13 @@ class PizzaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $pizza = Pizza::find($id);
+
+        if (!empty($pizza))
+            $pizza->update($input);
+
+        return redirect('admin');
     }
 
     /**
@@ -79,6 +96,11 @@ class PizzaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pizza = Pizza::find($id);
+
+        if (!empty($pizza))
+            Pizza::destroy($id);
+
+        return redirect()->route('dashboard');
     }
 }

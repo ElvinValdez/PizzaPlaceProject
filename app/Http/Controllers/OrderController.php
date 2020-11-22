@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pizza;
+use App\Models\Drink;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -23,7 +25,10 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $pizzas = Pizza::orderBy('name', 'desc')->get();
+        $drinks = Drink::all();
+
+        return view('order.create', compact('pizzas','drinks'));
     }
 
     /**

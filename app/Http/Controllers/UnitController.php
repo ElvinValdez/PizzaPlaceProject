@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 class UnitController extends Controller
@@ -23,7 +24,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-        //
+        return view('unit.create');
     }
 
     /**
@@ -34,7 +35,10 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $unit = Unit::create($input);
+
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -56,7 +60,8 @@ class UnitController extends Controller
      */
     public function edit($id)
     {
-        //
+        $unit = Unit::findOrFail($id);
+        return view('unit.edit', compact('unit'));
     }
 
     /**
@@ -68,7 +73,13 @@ class UnitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $unit = Unit::find($id);
+
+        if (!empty($unit))
+            $unit->update($input);
+
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -79,6 +90,11 @@ class UnitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $unit = Unit::find($id);
+
+        if (!empty($unit))
+            Unit::destroy($id);
+
+        return redirect()->route('dashboard');
     }
 }
