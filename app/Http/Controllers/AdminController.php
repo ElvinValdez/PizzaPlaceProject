@@ -29,6 +29,17 @@ class AdminController extends Controller
     }
 
     /**
+     * Checks role and redirects
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function dashboard()
+    {
+        // do role check
+        return view('admin.dashboard');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

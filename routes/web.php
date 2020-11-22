@@ -19,11 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin', 'AdminController@index');
-
-Route::get('/dashboard', function() {
-    return view('admin.dashboard');
-})->name('dashboard');
+Route::get('/admin',     'AdminController@index');
+Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
 
 Route::resource('/manage-orders', 'ManageOrderController');
 
