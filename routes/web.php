@@ -25,7 +25,7 @@ Route::get('/dashboard', function() {
     return view('admin.dashboard');
 })->name('dashboard');
 
-Route::resource('/manage-order', 'ManageOrderController');
+Route::resource('/manage-orders', 'ManageOrderController');
 
 Route::resource('/drinks', 'DrinkController');
 
@@ -43,12 +43,6 @@ Route::resource('/prices/drinks', 'DrinkPriceController');
 
 Route::resource('/sizes', 'SizeController');
 
-Route::resource('/unit', 'UnitController');
+Route::resource('/units', 'UnitController');
 
-Route::get('/user/create', function() {
-    return view('user.create');
-});
-
-Route::get('/user/edit', function() {
-    return view('user.edit');
-});
+Route::resource('/users', 'UserController');
