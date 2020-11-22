@@ -16,4 +16,9 @@ class DrinkPriceOrder extends Model
         'order_id',
         'quantity',
     ];
+
+    public function drink_price()
+    {
+        return $this->belongsTo('App\Models\DrinkPrice');
+    }
 }

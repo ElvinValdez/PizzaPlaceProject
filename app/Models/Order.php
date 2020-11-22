@@ -18,4 +18,14 @@ class Order extends Model
         'time',
         'sent',
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo('App\Models\User', 'customer_user_id');
+    }
+
+    public function seller()
+    {
+        return $this->belongsTo('App\Models\User', 'seller_user_id');
+    }
 }

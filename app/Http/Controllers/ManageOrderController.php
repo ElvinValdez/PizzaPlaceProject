@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderPizzaPrice;
+use App\Models\DrinkPriceOrder;
 use Illuminate\Http\Request;
 
 class ManageOrderController extends Controller
@@ -13,7 +16,11 @@ class ManageOrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders       = Order::all();
+        $order_pizzas = OrderPizzaPrice::all();
+        $order_drinks = DrinkPriceOrder::all();
+        
+        return view("admin.manageorder", compact('orders', 'order_pizzas', 'order_drinks'));
     }
 
     /**
@@ -68,7 +75,14 @@ class ManageOrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::find($id);
+
+        if (!empty($order)) {
+            $sent = $order->sent;
+            $order->update(['sent' => (int)!$sent]);
+        }
+            
+        return redirect()->route('manage-order.index');
     }
 
     /**

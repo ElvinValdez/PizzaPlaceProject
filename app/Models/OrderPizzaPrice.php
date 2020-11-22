@@ -16,4 +16,9 @@ class OrderPizzaPrice extends Model
         'order_id',
         'quantity',
     ];
+
+    public function pizza_price()
+    {
+        return $this->belongsTo('App\Models\PizzaPrice');
+    }
 }

@@ -16,4 +16,9 @@ class DrinkPrice extends Model
         'price',
         'drink_id',
     ];
+
+    public function drink()
+    {
+        return $this->belongsTo('App\Models\Drink');
+    }
 }
