@@ -16,4 +16,9 @@ class Drink extends Model
         'description',
         'size',
     ];
+
+    public function prices()
+    {
+        return $this->hasMany('App\Models\DrinkPrice', 'drink_id', 'id')->where('date', '!=', NULL);
+    }
 }

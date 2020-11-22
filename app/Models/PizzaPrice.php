@@ -16,4 +16,9 @@ class PizzaPrice extends Model
         'price',
         'pizza_id',
     ];
+
+    public function pizza()
+    {
+        return $this->belongsTo('App\Models\Pizza');
+    }
 }

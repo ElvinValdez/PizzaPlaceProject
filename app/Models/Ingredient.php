@@ -16,4 +16,14 @@ class Ingredient extends Model
         'description',
         'unit_id',
     ];
+
+    public function unit()
+    {
+        return $this->belongsTo('App\Models\Unit');
+    }
+
+    public function pizzas()
+    {
+        return $this->belongsToMany('App\Models\Pizza');
+    }
 }
