@@ -19,6 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/admin', 'AdminController@index');
+
 Route::get('/dashboard', function() {
     return view('admin.dashboard');
 });
@@ -27,61 +29,23 @@ Route::get('/manage-order', function() {
     return view('admin.manageorder');
 });
 
-Route::get('/drink/create', function() {
-    return view('drink.create');
-});
+Route::resource('/drinks', 'DrinkController');
 
-Route::get('/drink/edit', function() {
-    return view('drink.edit');
-});
+Route::resource('/ingredients', 'IngredientController');
 
-Route::get('/ingredient/create', function() {
-    return view('ingredient.create');
-});
+Route::resource('/orders', 'OrderController');
 
-Route::get('/ingredient/edit', function() {
-    return view('ingredient.edit');
-});
+Route::resource('/pizzas', 'PizzaController');
 
-Route::get('/order/create', function() {
-    return view('order.create');
-});
+Route::resource('/pizzas/ingredients/{pizza_id}', 'PizzaIngredientController')->parameters(['{pizza_id}' => 'pizza_ingredient_id']);
 
-Route::get('/pizza/create', function() {
-    return view('pizza.create');
-});
+Route::resource('/prices/pizzas', 'PizzaPriceController');
 
-Route::get('/pizza/edit', function() {
-    return view('pizza.edit');
-});
+Route::resource('/prices/drinks', 'DrinkPriceController');
 
-Route::get('/pizza_ingredient/id/create', function() {
-    return view('pizza_ingredient.create');
-});
+Route::resource('/sizes', 'SizeController');
 
-Route::get('/price/create', function() {
-    return view('price.create');
-});
-
-Route::get('/price/edit', function() {
-    return view('price.edit');
-});
-
-Route::get('/size/create', function() {
-    return view('size.create');
-});
-
-Route::get('/size/edit', function() {
-    return view('size.edit');
-});
-
-Route::get('/unit/create', function() {
-    return view('unit.create');
-});
-
-Route::get('/unit/edit', function() {
-    return view('unit.edit');
-});
+Route::resource('/unit', 'UnitController');
 
 Route::get('/user/create', function() {
     return view('user.create');
