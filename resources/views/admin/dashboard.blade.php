@@ -60,16 +60,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>customer</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>employee</td>
-                                    <td></td>
-                                </tr>
+                                    @foreach ($roles as $role)
+                                    <tr>
+                                        <td>{{$role->id}}</td>
+                                        <td>{{$role->name}}</td>
+                                        <td>{{$role->description}}</td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -79,34 +76,40 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Username</th>
-                                    <th>Password</th>
+                                    {{--<th>Password</th>--}}
                                     <th>Email</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
-                                    <th>Role ID</th>
+                                    <th>Role</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                
+                                @foreach($users as $user)
                                 <tr>
-                                    <td>user id</td>
-                                    <td>user username</td>
-                                    <td>user password</td>
-                                    <td>user email</td>
-                                    <td>user first_name</td>
-                                    <td>user last_name</td>
-                                    <td>user role_id</td>
-                                    <td><a class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
-                                    <td><a class="waves-effect waves-light btn-small red darken-1"><i class="material-icons">delete</i></a></td>
+                                    <td>{{$user->id}}</td>
+                                    <td>{{$user->username}}</td>
+                                    {{--<td>{{$user->password}}</td>--}}
+                                    <td>{{$user->email}}</td>
+                                    <td>{{$user->first_name}}</td>
+                                    <td>{{$user->last_name}}</td>
+                                    <td>{{$user->role->name}}</td>
+                                    <td><a href="{{route('users.edit', ['user' => $user->id])}}" class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
+                                    <td>
+                                        <form action="{{route('users.destroy', ['user' => $user->id])}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this element?')">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="waves-effect waves-light btn-small red darken-1"><i class="material-icons">delete</i></button>
+                                        </form>
+                                    </td>
                                 </tr>
-                                
+                                @endforeach
                                 </tbody>
                             </table>
                             <br>
                             <div style="text-align:right; margin-right: 12px;">
-                                <a class="waves-effect waves-light btn-small green darken-3"><i class="material-icons">person_add</i></a>
+                                <a href="{{route('users.create')}}" class="waves-effect waves-light btn-small green darken-3"><i class="material-icons">person_add</i></a>
                             </div>
                         </div>
                     </div>
@@ -142,19 +145,27 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($units as $unit)
                                 <tr>
-                                    <td>unit id</td>
-                                    <td>unit name</td>
-                                    <td>unit symbol</td>
-                                    <td>unit description</td>
-                                    <td><a class="waves-effect waves-light btn-small green darken-1" href="/unit/id/edit"><i class="material-icons">edit</i></a></td>
-                                    <td><a class="waves-effect waves-light btn-small red darken-1" href="/unit/id/delete"><i class="material-icons">delete</i></a></td>
+                                    <td>{{ $unit->id }}</td>
+                                    <td>{{ $unit->name }}</td>
+                                    <td>{{ $unit->symbol }}</td>
+                                    <td>{{ $unit->description }}</td>
+                                    <td><a class="waves-effect waves-light btn-small green darken-1" href="{{route('units.edit', ['unit' => $unit->id])}}"><i class="material-icons">edit</i></a></td>
+                                    <td>
+                                        <form action="{{route('units.destroy', ['unit' => $unit->id])}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this element?')">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="waves-effect waves-light btn-small red darken-1"><i class="material-icons">delete</i></button>
+                                        </form>
+                                    </td>
                                 </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                             <br>
                             <div style="text-align:right; margin-right: 5px;">
-                                <a class="waves-effect waves-light btn-small green darken-3" href="/unit/create"><i class="material-icons">add</i></a>
+                                <a class="waves-effect waves-light btn-small green darken-3" href="{{route('units.create')}}"><i class="material-icons">add</i></a>
                             </div>
                         </div>
                         <div id="ingredient">
@@ -170,19 +181,27 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($ingredients as $ingredient)
                                 <tr>
-                                    <td>ingredient id</td>
-                                    <td>ingredient name</td>
-                                    <td>ingredient description</td>
-                                    <td>ingredient unit</td>
-                                    <td><a  href="/ingredient/id/edit" class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
-                                    <td><a href="/ingredient/id/delete" class="waves-effect waves-light btn-small red darken-1"><i class="material-icons">delete</i></a></td>
+                                    <td>{{$ingredient->id}}</td>
+                                    <td>{{$ingredient->name}}</td>
+                                    <td>{{$ingredient->description}}</td>
+                                    <td>{{$ingredient->unit->name}}</td>
+                                    <td><a href="{{route('ingredients.edit', ['ingredient' => $ingredient->id])}}" class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
+                                    <td>
+                                        <form action="{{route('ingredients.destroy', ['ingredient' => $ingredient->id])}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this element?')">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="waves-effect waves-light btn-small red darken-1"><i class="material-icons">delete</i></button>    
+                                        </form>
+                                    </td>
                                 </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                             <br>
                             <div style="text-align:right; margin-right: 5px;">
-                                <a href="/ingredient/id/create" class="waves-effect waves-light btn-small green darken-3"><i class="material-icons">add</i></a>
+                                <a href="{{route('ingredients.create')}}" class="waves-effect waves-light btn-small green darken-3"><i class="material-icons">add</i></a>
                             </div>
                         </div>
                         <div id="size">
@@ -197,17 +216,25 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($sizes as $size)
                                 <tr>
-                                    <td>size id</td>
-                                    <td>size name</td>
-                                    <td>size description</td>
-                                    <td><a class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
-                                    <td><a class="waves-effect waves-light btn-small red darken-1"><i class="material-icons">delete</i></a></td>
+                                    <td>{{$size->id}}</td>
+                                    <td>{{$size->name}}</td>
+                                    <td>{{$size->description}}</td>
+                                    <td><a href="{{route('sizes.edit', ['size' => $size->id])}}" class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
+                                    <td>
+                                        <form action="{{route('sizes.destroy', ['size' => $size->id])}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this element?')">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="waves-effect waves-light btn-small red darken-1"><i class="material-icons">delete</i></button>    
+                                        </form>    
+                                    </td>
                                 </tr>
+                                @endforeach
                             </table>
                             <br>
                             <div style="text-align:right; margin-right: 15px;">
-                                <a class="waves-effect waves-light btn-small green darken-3"><i class="material-icons">add</i></a>
+                                <a href="{{route('sizes.create')}}" class="waves-effect waves-light btn-small green darken-3"><i class="material-icons">add</i></a>
                             </div>
                         </div>
                     </div>
@@ -238,12 +265,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($pizza_prices as $pizza_price)
                                 <tr>
-                                    <td>name</td>
-                                    <td>size</td>
-                                    <td>price</td>
-                                    <td><a href="/price/id/edit" class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
+                                    <td>{{$pizza_price->pizza->name}}</td>
+                                    <td>{{$pizza_price->pizza->size->name}}</td>
+                                    <td>{{$pizza_price->price}}</td>
+                                    <td><a href="{{route('pizza_prices.edit', ['pizza_price' => $pizza_price->id])}}" class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
                                 </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -257,12 +286,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($drink_prices as $drink_price)
                                 <tr>
-                                    <td>dp name</td>
-                                    <td>dp size</td>
-                                    <td>dp price</td>
-                                    <td><a class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
+                                    <td>{{$drink_price->drink->name}}</td>
+                                    <td>{{$drink_price->drink->size}}</td>
+                                    <td>{{$drink_price->price}}</td>
                                 </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -299,16 +329,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($pizzas as $pizza)
                                 <tr>
-                                    <td>pizza name</td>
-                                    <td>pizza description</td>
-                                    <td>pizza size</td>
-
-
+                                    <td>{{$pizza->name}}</td>
+                                    <td>{{$pizza->description}}</td>
+                                    <td>{{$pizza->size->name}}</td>
                                     <td>
-                                        <a class="waves-effect waves-light btn modal-trigger    green darken-4" href="#modal{id}"><i class="material-icons">restaurant_menu</i></a>
+                                        <a class="waves-effect waves-light btn modal-trigger green darken-4" href="#modal-pizza-{{$pizza->id}}"><i class="material-icons">restaurant_menu</i></a>
                                         <!-- Modal Structure -->
-                                        <div id="modal{id}" class="modal">
+                                        <div id="modal{{$pizza->id}}" class="modal">
                                             <div class="modal-content">
                                                 <table class="centered">
                                                     <thead>
@@ -320,35 +349,43 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    @foreach ($pizza->ingredients as $ingredient)
                                                     <tr>
-                                                        <td>name</td>
-                                                        <td>quantity</td>
-                                                        <td>symbol</td>
-                                                        <td><a class="waves-effect waves-light btn-small red darken-1" href="/pizza_ingredient/pizza_id/ingredient_id/delete"><i class="material-icons">delete</i></a></td>
+                                                        <td>{{$ingredient->name}}</td>
+                                                        <td>{{$ingredient->pivot->quantity}}</td>
+                                                        <td>{{$ingredient->unit->symbol}}</td>
+                                                        <td>
+                                                            <form action="{{route('{pizza_id}.destroy', ['pizza_id' => $pizza->id, 'pizza_ingredient_id' => $ingredient->id])}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this element?')">
+                                                                @csrf
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <button class="waves-effect waves-light btn-small red darken-1" href=""><i class="material-icons">delete</i></button>
+                                                            </form>
+                                                        </td>
                                                     </tr>
+                                                    @endforeach
                                                     </tbody>
                                                 </table>
                                                 <br>
                                                 <div>
-                                                    <a href="/pizza_ingredient/id/create" class="waves-effect waves-light btn-small green darken-3"><i class="material-icons">add</i></a>
+                                                    <a href="{{route('{pizza_id}.create', ['pizza_id' => $pizza->id])}}" class="waves-effect waves-light btn-small green darken-3"><i class="material-icons">add</i></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td><a href="/pizza/id/edit" class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
+                                    <td><a href="{{route('pizzas.edit', ['pizza' => $pizza->id])}}" class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
                                 </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                             <br>
                             <div style="text-align:right; margin-right: 2%;">
-                                <a class="waves-effect waves-light btn-small green darken-3" href="/pizza/create"><i class="material-icons">add</i></a>
+                                <a class="waves-effect waves-light btn-small green darken-3" href="{{route('pizzas.create')}}"><i class="material-icons">add</i></a>
                             </div>
                         </div>
                         <div id="drink">
                             <table class="centered">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>Size</th>
@@ -357,43 +394,27 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($drinks as $drink)
                                 <tr>
-                                    <td>1</td>
-                                    <td>Coca-Cola</td>
-                                    <td>Plastic Bottle</td>
-                                    <td>2 lt</td>
-                                    <td><a class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
-                                    <td><a class="waves-effect waves-light btn-small red darken-1"><i class="material-icons">delete</i></a></td>
+                                    <td>{{$drink->name}}</td>
+                                    <td>{{$drink->description}}</td>
+                                    <td>{{$drink->size}}</td>
+                                    <td><a class="waves-effect waves-light btn-small green darken-1" href="{{route('drinks.edit', ['drink' => $drink->id])}}"><i class="material-icons">edit</i></a></td>
+                                    <td>
+                                        <form action="{{route('drinks.destroy', ['drink' => $drink->id])}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this element?')">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="waves-effect waves-light btn-small red darken-1"><i class="material-icons">delete</i></button>
+                                        </form>
+                                        
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Fanta</td>
-                                    <td>Plastic Bottle</td>
-                                    <td>2 lt</td>
-                                    <td><a class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
-                                    <td><a class="waves-effect waves-light btn-small red darken-1"><i class="material-icons">delete</i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Sprite</td>
-                                    <td>Plastic Bottle</td>
-                                    <td>2 lt</td>
-                                    <td><a class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
-                                    <td><a class="waves-effect waves-light btn-small red darken-1"><i class="material-icons">delete</i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Pepsi</td>
-                                    <td>Plastic Bottle</td>
-                                    <td>2 lt</td>
-                                    <td><a class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
-                                    <td><a class="waves-effect waves-light btn-small red darken-1"><i class="material-icons">delete</i></a></td>
-                                </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                             <br>
                             <div style="text-align:right; margin-right: 5.5%;">
-                                <a class="waves-effect waves-light btn-small green darken-3"><i class="material-icons">add</i></a>
+                                <a href="{{route('drinks.create')}}" class="waves-effect waves-light btn-small green darken-3"><i class="material-icons">add</i></a>
                             </div>
                         </div>
                     </div>

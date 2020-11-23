@@ -26,7 +26,7 @@ class IngredientController extends Controller
     public function create()
     {
         $units = Unit::all();
-        return view('ingredients.create', compact('units'));
+        return view('ingredient.create', compact('units'));
     }
 
     /**

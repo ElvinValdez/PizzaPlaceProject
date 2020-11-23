@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ingredient;
 use App\Models\PizzaIngredient;
 use Illuminate\Http\Request;
 

@@ -8,6 +8,9 @@ use App\Models\Ingredient;
 use App\Models\Size;
 use App\Models\Drink;
 use App\Models\Pizza;
+use App\Models\Role;
+use App\Models\PizzaPrice;
+use App\Models\DrinkPrice;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -19,13 +22,17 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users       = User::all();
-        $units       = Unit::all();
-        $ingredients = Ingredient::all();
-        $sizes       = Size::all();
-        $drinks      = Drink::all();
-        $pizzas      = Pizza::all();
-        return view('admin.dashboard', compact('users', 'units', 'ingredients', 'sizes', 'drinks', 'pizzas'));
+        $users        = User::all();
+        $units        = Unit::all();
+        $ingredients  = Ingredient::all();
+        $sizes        = Size::all();
+        $drinks       = Drink::all();
+        $pizzas       = Pizza::all();
+        $roles        = Role::all();
+        $pizza_prices = PizzaPrice::all();
+        $drink_prices = DrinkPrice::all();
+
+        return view('admin.dashboard', compact('users', 'units', 'ingredients', 'sizes', 'drinks', 'pizzas', 'roles', 'pizza_prices', 'drink_prices'));
     }
 
     /**
