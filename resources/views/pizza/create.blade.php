@@ -40,7 +40,7 @@
 				<div class="col s6 offset-s3">
 					<div class="card-panel green lighten-5">
 						<div class="row">
-							<form class="col s12" method="POST" action="/pizza">
+							<form class="col s12" method="POST" action="{{route('pizzas.store')}}">
 								@csrf
 								<h4>Pizza</h4>
 								<div class="row">
@@ -50,7 +50,9 @@
 									</div>
 									<div class="input-field col s4">
 										<select name="size_id">
-											<option value="size id">size name</option>
+											@foreach($sizes as $size)
+											<option value="{{$size->id}}">{{$size->name}}</option>
+											@endforeach
 										</select>
 										<label>Size</label>
 									</div>

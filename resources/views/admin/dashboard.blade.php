@@ -302,7 +302,7 @@
         </div>
 
 
-        <div class="row">
+        <div class="row" id="pizzas_and_drinks">
             <div class="col s12">
                 <div class="card blue-grey darken-1">
                     <div class="card-content white-text">
@@ -326,6 +326,7 @@
                                     <th>Ingredient</th>
                                     <th></th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -337,7 +338,7 @@
                                     <td>
                                         <a class="waves-effect waves-light btn modal-trigger green darken-4" href="#modal-pizza-{{$pizza->id}}"><i class="material-icons">restaurant_menu</i></a>
                                         <!-- Modal Structure -->
-                                        <div id="modal{{$pizza->id}}" class="modal">
+                                        <div id="modal-pizza-{{$pizza->id}}" class="modal">
                                             <div class="modal-content">
                                                 <table class="centered">
                                                     <thead>
@@ -355,7 +356,7 @@
                                                         <td>{{$ingredient->pivot->quantity}}</td>
                                                         <td>{{$ingredient->unit->symbol}}</td>
                                                         <td>
-                                                            <form action="{{route('{pizza_id}.destroy', ['pizza_id' => $pizza->id, 'pizza_ingredient_id' => $ingredient->id])}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this element?')">
+                                                            <form action="{{route('{pizza_id}.destroy', ['pizza_id' => $pizza->id, 'ingredient_id' => $ingredient->id])}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this element?')">
                                                                 @csrf
                                                                 <input type="hidden" name="_method" value="DELETE">
                                                                 <button class="waves-effect waves-light btn-small red darken-1" href=""><i class="material-icons">delete</i></button>
@@ -373,6 +374,13 @@
                                         </div>
                                     </td>
                                     <td><a href="{{route('pizzas.edit', ['pizza' => $pizza->id])}}" class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
+                                    <td>
+                                        <form action="{{route('pizzas.destroy', ['pizza' => $pizza->id])}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this element?')">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="waves-effect waves-light btn-small red darken-1"><i class="material-icons">delete</i></button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 @endforeach
                                 </tbody>

@@ -38,7 +38,7 @@ class DrinkController extends Controller
         $input = $request->all();
         $drink = Drink::create($input);
 
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#pizzas_and_drinks");
     }
 
     /**
@@ -79,7 +79,7 @@ class DrinkController extends Controller
         if (!empty($drink))
             $drink->update($input);
 
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#pizzas_and_drinks");
     }
 
     /**
@@ -93,8 +93,8 @@ class DrinkController extends Controller
         $drink = Drink::find($id);
 
         if (!empty($drink))
-            Ingredient::destroy($id);
+            Drink::destroy($id);
 
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#pizzas_and_drinks");
     }
 }

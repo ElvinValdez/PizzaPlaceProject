@@ -31,7 +31,7 @@ Route::resource('/orders', 'OrderController');
 
 Route::resource('/pizzas', 'PizzaController');
 
-Route::resource('/pizzas/ingredients/{pizza_id}', 'PizzaIngredientController')->parameters(['{pizza_id}' => 'pizza_ingredient_id']);
+Route::resource('/pizzas/ingredients/{pizza_id}', 'PizzaIngredientController')->parameters(['{pizza_id}' => 'ingredient_id']);
 
 Route::resource('/pizza_prices', 'PizzaPriceController');
 

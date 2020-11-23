@@ -40,14 +40,17 @@
 				<div class="col s6 offset-s3">
 					<div class="card-panel green lighten-5">
 						<div class="row">
-							<form class="col s12" method="POST" action="/pizza_ingredient/id">
+							<form class="col s12" method="POST" action="{{route('{pizza_id}.store', ['pizza_id' => $pizza_id])}}">
+								@csrf
 								<h4>Pizza Ingredient</h4>
 								<div class="row">
 									<div class="input-field col s8">
 										<select name="ingredient_id">
-											<option value="ingredient id">ingredient name ingredient unit</option>
+											@foreach($ingredients as $ingredient)
+											<option value="{{$ingredient->id}}">{{$ingredient->name}} [{{$ingredient->unit->name}}]</option>
+											@endforeach
 										</select>
-										<label>Size</label>
+										<label>Ingredient</label>
 									</div>
 									<div class="input-field col s4">
 										<input id="quantity" name="quantity" type="text">

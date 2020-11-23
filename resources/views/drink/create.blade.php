@@ -41,7 +41,8 @@
 				<div class="col s6 offset-s3">
 					<div class="card-panel green lighten-5">
 						<div class="row">
-							<form class="col s12">
+							<form class="col s12" action="{{route('drinks.store')}}" method="POST">
+								@csrf
 								<h4>Drink</h4>
 								<div class="row">
 									<div class="input-field col s6">
@@ -61,7 +62,7 @@
 								</div>
 								<div class="row">
 									<div class="col s12 center-align">
-										<a href="#" class="waves-effect waves-light btn-small green darken-2"><i class="material-icons">save</i></a>
+										<button type="submit" class="waves-effect waves-light btn-small green darken-2"><i class="material-icons">save</i></button>
 									</div>
 									<br><br><br>
 								</div>
