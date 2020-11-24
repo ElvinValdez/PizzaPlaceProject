@@ -18,9 +18,20 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders       = Order::all();
+        $search = $request->get('search');
+
+        $orders       = (isset($search)) 
+                      ? Order::join('users as u1', 'u1.id', '=', 'orders.customer_user_id')
+                           ->join('users as u2', 'u2.id', '=', 'orders.seller_user_id')
+                           ->where('u1.username', 'like', "%$search%")
+                           ->orWhere('u2.username', 'like', "%$search%")
+                           ->orWhere('orders.address', 'like', "%$search%")
+                           ->orWhere('orders.time', 'like', "%$search%")
+                           ->get()
+                      : Order::all();
+                      
         $order_pizzas = OrderPizzaPrice::all();
         $order_drinks = DrinkPriceOrder::all();
         

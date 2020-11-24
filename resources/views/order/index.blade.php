@@ -5,6 +5,16 @@
 	<br>
 	<div class="row">
 		<div class="col s12">
+			<form action="{{route('orders.index')}}" method="GET">
+			<div class="card  green lighten-3" style="margin: 0 20px; padding: 0 20px;">
+				<input type="text" class="form-control" name="search">
+				<i class="material-icons" style="position: absolute; right: 10px; top: 10px">search</i>
+			</div>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s12">
 			<div class="card  green lighten-3">
 				<div class="card-content white-text">
 					<span class="card-title">Manage Order</span>
