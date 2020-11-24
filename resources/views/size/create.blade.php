@@ -40,7 +40,8 @@
 				<div class="col s5 offset-s4">
 					<div class="card-panel green lighten-5">
 						<div class="row">
-							<form class="col s12">
+							<form class="col s12" action="{{route('sizes.store')}}" method="POST">
+								@csrf
 								<h4>Size</h4>
 								<div class="row">
 									<div class="input-field col s12">
@@ -57,7 +58,7 @@
 
 								<div class="row">
 									<div class="col s12 center-align">
-										<a href="index.html" class="waves-effect waves-light btn-small	  green darken-2"><i class="material-icons">save</i></a>
+										<button type="submit" class="waves-effect waves-light btn-small	  green darken-2"><i class="material-icons">save</i></button>
 									</div>
 									<br><br><br>
 								</div>

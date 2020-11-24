@@ -40,7 +40,8 @@
 				<div class="col s8 offset-s2">
 					<div class="card-panel green lighten-5">
 						<div class="row">
-							<form class="col s12">
+							<form class="col s12" action="{{route('users.store')}}" method="POST">
+								@csrf
 								<h4>User</h4>
 								<div class="row">
 									<div class="input-field col s6">
@@ -68,16 +69,17 @@
 										<label for="email">Email</label>
 									</div>
 									<div class="input-field col s6">
-										<select name="role">
-											<option value="1">1</option>
-											<option value="2">2</option>
+										<select name="role_id">
+											@foreach($roles as $role)
+											<option value="{{$role->id}}">{{$role->name}}</option>
+											@endforeach
 										</select>
 										<label>Role</label>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col s12 center-align">
-										<a href="index.html" class="waves-effect waves-light btn-small	  green darken-2"><i class="material-icons">save</i></a>
+										<button type="submit" class="waves-effect waves-light btn-small	  green darken-2"><i class="material-icons">save</i></button>
 									</div>
 								</div>
 							</form>

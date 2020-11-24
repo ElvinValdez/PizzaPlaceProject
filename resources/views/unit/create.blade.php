@@ -40,7 +40,7 @@
 				<div class="col s6 offset-s3">
 					<div class="card-panel green lighten-5">
 						<div class="row">
-							<form class="col s12" method="POST" action="/unit">
+							<form class="col s12" method="POST" action="{{route('units.store')}}">
 								@csrf
 								<h4>Unit</h4>
 								<div class="row">

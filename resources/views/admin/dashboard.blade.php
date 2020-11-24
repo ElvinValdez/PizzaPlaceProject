@@ -35,7 +35,7 @@
 </header>
 <!--Content-->
 <main>
-    <div class="container">
+    <div class="container" id="users_roles">
         <img class="responsive-img" src="{{asset('img/welcomeA.png')}}">
         <div class="row">
             <div class="col s12">
@@ -117,7 +117,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" id="units_ingredients_sizes_prices">
             <div class="col s6">
                 <div class="card blue-grey darken-1">
                     <div class="card-content white-text">
@@ -283,6 +283,7 @@
                                     <th>Name</th>
                                     <th>Size</th>
                                     <th>Price</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -291,6 +292,7 @@
                                     <td>{{$drink_price->drink->name}}</td>
                                     <td>{{$drink_price->drink->size}}</td>
                                     <td>{{$drink_price->price}}</td>
+                                    <td><a href="{{route('drink_prices.edit', ['drink_price' => $drink_price->id])}}" class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
                                 </tr>
                                 @endforeach
                                 </tbody>

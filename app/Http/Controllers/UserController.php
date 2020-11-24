@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -24,7 +27,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        $roles = Role::all();
+        return view('user.create', compact('roles'));
     }
 
     /**
@@ -35,7 +39,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $input['api_token'] = Str::random(80);
+        $input['password'] = Hash::make($input['password']);
+        $user = User::create($input);
+        return redirect()->to(route('dashboard'). '#users_roles');
     }
 
     /**
@@ -58,8 +66,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        $roles = Role::all();
 
-        return view('user.edit', compact('user'));
+        return view('user.edit', compact('user', 'roles'));
     }
 
     /**
@@ -77,7 +86,7 @@ class UserController extends Controller
         if (!empty($user))
             $user->update($input);
 
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard'). '#users_roles');
     }
 
     /**
@@ -93,6 +102,6 @@ class UserController extends Controller
         if (!empty($user))
             User::destroy($id);
 
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard'). '#users_roles');
     }
 }

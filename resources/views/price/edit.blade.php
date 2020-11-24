@@ -40,22 +40,15 @@
 				<div class="col s6 offset-s3">
 					<div class="card-panel green lighten-5">
 						<div class="row">
-							<form class="col s12" method="POST" action="/price/price{id}">
+							<form class="col s12" method="POST" action="@if(isset($pizza)){{route('pizza_prices.update', ['pizza_price' => $price->id])}}@elseif(isset($drink)){{route('drink_prices.update', ['drink_price' => $price->id])}}@endif">
+							@csrf
+							@method('PUT')
 							<h4>Price</h4>
 							<div class="row">
-								<div class="input-field col s4">
-									<input disabled id="name" name="name" type="text" value="price name">
-									<label for="name">Name</label>
+								<div class="input-field col s12">
+									<input name="price" type="text" value="{{$price->price}}">
+									<label for="name">Price</label>
 								</div>
-								<div class="input-field col s4">
-									<input disabled name="size" type="text" value="price size">
-									<label for="name">Size</label>
-								</div>
-								<div class="input-field col s4">
-									<input id="price" name="price" type="text" value="price price">
-									<label for="price">Price</label>
-								</div>
-
 							</div>
 							<div class="row">
 								<div class="col s12 center-align">

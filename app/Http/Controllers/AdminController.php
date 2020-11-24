@@ -29,8 +29,8 @@ class AdminController extends Controller
         $drinks       = Drink::all();
         $pizzas       = Pizza::all();
         $roles        = Role::all();
-        $pizza_prices = PizzaPrice::all();
-        $drink_prices = DrinkPrice::all();
+        $pizza_prices = PizzaPrice::where('date', '=', NULL)->get();
+        $drink_prices = DrinkPrice::where('date', '=', NULL)->get();
 
         return view('admin.dashboard', compact('users', 'units', 'ingredients', 'sizes', 'drinks', 'pizzas', 'roles', 'pizza_prices', 'drink_prices'));
     }

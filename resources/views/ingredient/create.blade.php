@@ -41,7 +41,8 @@
 				<div class="col s6 offset-s3">
 					<div class="card-panel green lighten-5">
 						<div class="row">
-							<form class="col s12" method="POST" action="/ingredient">
+							<form class="col s12" method="POST" action="{{route('ingredients.store')}}">
+								@csrf
 								<h4>Ingredient</h4>
 								<div class="row">
 									<div class="input-field col s6">
@@ -50,7 +51,9 @@
 									</div>
 									<div class="input-field col s6">
 										<select name="unit_id">
-											<option value="unit id">unit name</option>
+											@foreach($units as $unit)
+											<option value="{{$unit->id}}">{{$unit->name}}</option>
+											@endforeach
 										</select>
 										<label>Unit</label>
 									</div>

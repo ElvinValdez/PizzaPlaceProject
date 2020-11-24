@@ -38,7 +38,7 @@ class UnitController extends Controller
         $input = $request->all();
         $unit = Unit::create($input);
 
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#units_ingredients_sizes_prices");
     }
 
     /**
@@ -79,7 +79,7 @@ class UnitController extends Controller
         if (!empty($unit))
             $unit->update($input);
 
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#units_ingredients_sizes_prices");
     }
 
     /**
@@ -95,6 +95,6 @@ class UnitController extends Controller
         if (!empty($unit))
             Unit::destroy($id);
 
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#units_ingredients_sizes_prices");
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Drink;
 use App\Models\DrinkPrice;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,7 @@ class DrinkPriceController extends Controller
      */
     public function create()
     {
-        return view('price.create');
+        //
     }
 
     /**
@@ -57,9 +58,10 @@ class DrinkPriceController extends Controller
      */
     public function edit($id)
     {
-        $price = DrinkPrice::find($id);
+        $price  = DrinkPrice::find($id);
+        $drink  = $price->drink;
 
-        return view('price.edit', compact('price'));
+        return view('price.edit', compact('price', 'drink'));
     }
 
     /**
@@ -75,10 +77,12 @@ class DrinkPriceController extends Controller
 
         $old_price = DrinkPrice::find($id);
         $old_price->update(['date' =>  now()]);
+        $new_price = $old_price->replicate();
+        $new_price->date = NULL;
+        $new_price->price = $price;
+        $new_price->push();
 
-        $new_price = DrinkPrice::create(['drink_id', $old_price->drink_id, 'price' => $price]);
-
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#units_ingredients_sizes_prices");
     }
 
     /**
