@@ -26,7 +26,7 @@ class IngredientController extends Controller
     public function create()
     {
         $units = Unit::all();
-        return view('ingredients.create', compact('units'));
+        return view('ingredient.create', compact('units'));
     }
 
     /**
@@ -40,7 +40,7 @@ class IngredientController extends Controller
         $input = $request->all();
         $ingredient = Ingredient::create($input);
 
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#units_ingredients_sizes");
     }
 
     /**
@@ -83,7 +83,7 @@ class IngredientController extends Controller
         if (!empty($ingredient))
             $ingredient->update($input);
 
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#units_ingredients_sizes");
     }
 
     /**
@@ -99,6 +99,6 @@ class IngredientController extends Controller
         if (!empty($ingredient))
             Ingredient::destroy($id);
 
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#units_ingredients_sizes");
     }
 }

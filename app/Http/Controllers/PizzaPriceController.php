@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pizza;
 use App\Models\PizzaPrice;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,7 @@ class PizzaPriceController extends Controller
      */
     public function create()
     {
-        return view('price.create');
+        //
     }
 
     /**
@@ -57,9 +58,10 @@ class PizzaPriceController extends Controller
      */
     public function edit($id)
     {
-        $price = PizzaPrice::find($id);
+        $price  = PizzaPrice::find($id);
+        $pizza  = $price->pizza;
 
-        return view('price.edit', compact('price'));
+        return view('price.edit', compact('price', 'pizza'));
     }
 
     /**
@@ -74,11 +76,13 @@ class PizzaPriceController extends Controller
         $price = $request->get('price');
 
         $old_price = PizzaPrice::find($id);
-        $old_price->update(['date' =>  now()]);
+        $old_price->update(['date' => now()]);
+        $new_price = $old_price->replicate();
+        $new_price->date = NULL;
+        $new_price->price = $price;
+        $new_price->push();
 
-        $new_price = PizzaPrice::create(['pizza_id', $old_price->pizza_id, 'price' => $price]);
-
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#units_ingredients_sizes_prices");
     }
 
     /**

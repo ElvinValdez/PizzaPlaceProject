@@ -21,4 +21,9 @@ class OrderPizzaPrice extends Model
     {
         return $this->belongsTo('App\Models\PizzaPrice');
     }
+
+    public function order()
+    {
+        return $this->belongsTo('App\Models\Order');
+    }
 }

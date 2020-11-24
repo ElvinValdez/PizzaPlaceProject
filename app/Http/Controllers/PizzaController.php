@@ -42,7 +42,7 @@ class PizzaController extends Controller
         $pizza = Pizza::create($input);
         $input['pizza_id'] = $pizza->id;
         $pizza_price = PizzaPrice::create($input);
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#pizzas_and_drinks");
     }
 
     /**
@@ -85,7 +85,7 @@ class PizzaController extends Controller
         if (!empty($pizza))
             $pizza->update($input);
 
-        return redirect('admin');
+        return redirect()->to(route('dashboard')."#pizzas_and_drinks");
     }
 
     /**
@@ -101,6 +101,6 @@ class PizzaController extends Controller
         if (!empty($pizza))
             Pizza::destroy($id);
 
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#pizzas_and_drinks");
     }
 }

@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Pizza Place</title>
+    <link rel="icon" href="{{asset('img/pii.png')}}" type="image/png" />
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{asset('img/favicon.png')}}" />
@@ -15,22 +16,35 @@
 
 </head>
 
-<body>
+<body background="{{asset('img/1.png')}}">
 <!--Navbar-->
 <header>
     <div class="navbar-fixed">
         <nav class="green darken-1">
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo">
-                    <img class="responsive-img" src="" width="190">
+                    <img class="responsive-img" src="{{asset('img/logo1.png')}}" width="340">
                 </a>
+                <ul class="right">
+                    @auth
+                    <li><a href="{{route('orders.index')}}">Orders</a></li>
+                    <li>
+                        <form id="logout" action="{{route('logout')}}" method="POST">
+                        @csrf
+                        </form>
+                        <a onclick="document.getElementById('logout').submit()"><i class="material-icons" style="font-size: 35px;">highlight_off</i></a>                        
+                    </li>
+                    @else
+                    <li><a href="{{route('login')}}">Login</a></li>
+                    @endauth
+                </ul>
             </div>
         </nav>
     </div>
 </header>
 <!--Content-->
 <main>
-
+@yield('content')
 </main>
 
 <!--Footer-->
@@ -63,8 +77,14 @@
     document.addEventListener('DOMContentLoaded', function() {
         M.AutoInit();
     });
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.fixed-action-btn');
+        var instances = M.FloatingActionButton.init(elems, {
+            direction: 'left',
+            hoverEnabled: false
+        });
+    });
 </script>
-
 
 </body>
 </html>

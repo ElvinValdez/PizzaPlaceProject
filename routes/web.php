@@ -19,10 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin',     'AdminController@index');
-Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
-
-Route::resource('/manage-orders', 'ManageOrderController');
+Route::get('/dashboard', 'AdminController@index')->name('dashboard');
 
 Route::resource('/drinks', 'DrinkController');
 
@@ -32,11 +29,11 @@ Route::resource('/orders', 'OrderController');
 
 Route::resource('/pizzas', 'PizzaController');
 
-Route::resource('/pizzas/ingredients/{pizza_id}', 'PizzaIngredientController')->parameters(['{pizza_id}' => 'pizza_ingredient_id']);
+Route::resource('/pizzas/ingredients/{pizza_id}', 'PizzaIngredientController')->parameters(['{pizza_id}' => 'ingredient_id']);
 
-Route::resource('/prices/pizzas', 'PizzaPriceController');
+Route::resource('/pizza_prices', 'PizzaPriceController');
 
-Route::resource('/prices/drinks', 'DrinkPriceController');
+Route::resource('/drink_prices', 'DrinkPriceController');
 
 Route::resource('/sizes', 'SizeController');
 

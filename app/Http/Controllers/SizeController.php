@@ -37,7 +37,7 @@ class SizeController extends Controller
     {
         $input = $request->all();
         $size = Size::create($input);
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#units_ingredients_sizes");
     }
 
     /**
@@ -78,7 +78,7 @@ class SizeController extends Controller
         if (!empty($size))
             $size->update($input);
 
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#units_ingredients_sizes");
     }
 
     /**
@@ -94,6 +94,6 @@ class SizeController extends Controller
         if (!empty($size))
             Size::destroy($id);
 
-        return redirect()->route('dashboard');
+        return redirect()->to(route('dashboard')."#units_ingredients_sizes");
     }
 }
