@@ -21,8 +21,6 @@ Route::get('/', function () {
 
 Route::get('/dashboard', 'AdminController@index')->name('dashboard');
 
-Route::resource('/manage-orders', 'ManageOrderController');
-
 Route::resource('/drinks', 'DrinkController');
 
 Route::resource('/ingredients', 'IngredientController');

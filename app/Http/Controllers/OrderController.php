@@ -20,8 +20,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $a = ['a','b'];
-        dd(array_merge($a, ['c']), array_merge($a, ['d']));
+        $orders       = Order::all();
+        $order_pizzas = OrderPizzaPrice::all();
+        $order_drinks = DrinkPriceOrder::all();
+        
+        return view("order.index", compact('orders', 'order_pizzas', 'order_drinks'));
     }
 
     /**
@@ -95,7 +98,14 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::find($id);
+
+        if (!empty($order)) {
+            $sent = $order->sent;
+            $order->update(['sent' => (int)!$sent]);
+        }
+            
+        return redirect()->route('orders.index');
     }
 
     /**
@@ -106,6 +116,11 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::find($id);
+
+        if (!empty($order))
+            Order::destroy($id);
+        
+        return redirect()->route('orders.index');
     }
 }

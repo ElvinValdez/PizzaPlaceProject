@@ -26,7 +26,17 @@
                     <img class="responsive-img" src="{{asset('img/logo1.png')}}" width="340">
                 </a>
                 <ul class="right">
-                    <li><a href="/logout"><i class="material-icons" style="font-size: 35px;">highlight_off</i></a></li>
+                    @auth
+                    <li><a href="{{route('orders.index')}}">Orders</a></li>
+                    <li>
+                        <form id="logout" action="{{route('logout')}}" method="POST">
+                        @csrf
+                        </form>
+                        <a onclick="document.getElementById('logout').submit()"><i class="material-icons" style="font-size: 35px;">highlight_off</i></a>                        
+                    </li>
+                    @else
+                    <li><a href="{{route('login')}}">Login</a></li>
+                    @endauth
                 </ul>
             </div>
         </nav>
