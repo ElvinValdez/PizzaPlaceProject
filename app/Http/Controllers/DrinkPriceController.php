@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Drink;
 use App\Models\DrinkPrice;
 use Illuminate\Http\Request;
+use App\Http\Requests\DrinkPriceEditRequest;
 
 class DrinkPriceController extends Controller
 {
@@ -67,11 +68,11 @@ class DrinkPriceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\DrinkPriceEditRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DrinkPriceEditRequest $request, $id)
     {
         $price = $request->get('price');
 

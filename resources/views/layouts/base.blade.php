@@ -22,7 +22,7 @@
     <div class="navbar-fixed">
         <nav class="green darken-1">
             <div class="nav-wrapper">
-                <a href="#" class="brand-logo">
+                <a href="/" class="brand-logo">
                     <img class="responsive-img" src="{{asset('img/logo1.png')}}" width="340">
                 </a>
                 <ul class="right">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Size;
 use Illuminate\Http\Request;
+use App\Http\Requests\SizeCreateRequest;
+use App\Http\Requests\SizeEditRequest;
 
 class SizeController extends Controller
 {
@@ -30,10 +32,10 @@ class SizeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\SizeCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SizeCreateRequest $request)
     {
         $input = $request->all();
         $size = Size::create($input);
@@ -66,11 +68,11 @@ class SizeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\SizeEditRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SizeEditRequest $request, $id)
     {
         $input = $request->all();
         $size  = Size::find($id);

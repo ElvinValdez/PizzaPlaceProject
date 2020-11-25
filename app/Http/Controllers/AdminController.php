@@ -36,14 +36,23 @@ class AdminController extends Controller
     }
 
     /**
-     * Checks role and redirects
+     * Shows admin dashboard
      * 
      * @return \Illuminate\Http\Response
      */
     public function dashboard()
     {
-        // do role check
         return view('admin.dashboard');
+    }
+
+    /**
+     * Shows order creation
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function main()
+    {
+        return view('order.create');
     }
 
     /**

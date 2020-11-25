@@ -13,7 +13,8 @@
 					<h4>Price</h4>
 					<div class="row">
 						<div class="input-field col s12">
-							<input name="price" type="text" value="{{$price->price}}">
+							<input name="price" type="text" value="{{$price->price}}" class="@error('price') is-invalid @enderror">
+							@include('layouts.error', ['input' => 'price'])
 							<label for="name">Price</label>
 						</div>
 					</div>

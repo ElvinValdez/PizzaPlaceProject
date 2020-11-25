@@ -12,35 +12,41 @@
 						<h4>User</h4>
 						<div class="row">
 							<div class="input-field col s6">
-								<input id="first_name" name="first_name" type="text" class="validate">
+								<input id="first_name" name="first_name" type="text" class="validate @error('first_name') is-invalid @enderror">
+								@include('layouts.error', ['input' => 'first_name'])
 								<label for="first_name">First Name</label>
 							</div>
 							<div class="input-field col s6">
-								<input id="last_name" name="last_name" type="text" class="validate">
+								<input id="last_name" name="last_name" type="text" class="validate @error('last_name') is-invalid @enderror">
+								@include('layouts.error', ['input' => 'last_name'])
 								<label for="last_name">Last Name</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s6">
-								<input id="username" name="username" type="text" class="validate">
+								<input id="username" name="username" type="text" class="validate @error('username') is-invalid @enderror">
+								@include('layouts.error', ['input' => 'username'])
 								<label for="username">Username</label>
 							</div>
 							<div class="input-field col s6">
-								<input id="password" name="password" type="password" class="validate">
+								<input id="password" name="password" type="password" class="validate @error('password') is-invalid @enderror">
+								@include('layouts.error', ['input' => 'password'])
 								<label for="password">Password</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s6">
-								<input id="email" name="email" type="email" class="validate">
+								<input id="email" name="email" type="email" class="validate @error('email') is-invalid @enderror">
+								@include('layouts.error', ['input' => 'email'])
 								<label for="email">Email</label>
 							</div>
 							<div class="input-field col s6">
-								<select name="role_id">
+								<select name="role_id" class="@error('role_id') is-invalid @enderror">
 									@foreach($roles as $role)
 									<option value="{{$role->id}}">{{$role->name}}</option>
 									@endforeach
 								</select>
+								@include('layouts.error', ['input' => 'role_id'])
 								<label>Role</label>
 							</div>
 						</div>

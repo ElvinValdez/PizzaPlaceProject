@@ -13,21 +13,24 @@
 						<h4>Ingredient</h4>
 						<div class="row">
 							<div class="input-field col s6">
-								<input id="name" name="name" type="text" value="{{$ingredient->name}}">
+								<input id="name" name="name" type="text" value="{{$ingredient->name}}" class="@error('name') is-invalid @enderror">
+								@include('layouts.error', ['input' => 'name'])
 								<label for="name">Name</label>
 							</div>
 							<div class="input-field col s6">
-								<select name="unit_id">
+								<select name="unit_id" class="@error('unit_id') is-invalid @enderror">
 									@foreach($units as $unit)
 									<option value="{{$unit->id}}" {{($unit->id == $ingredient->unit_id) ? 'selected' : ''}}>{{$unit->name}}</option>
 									@endforeach
 								</select>
+								@include('layouts.error', ['input' => 'name'])
 								<label>Unit</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
-								<textarea id="description" name="description" class="materialize-textarea">{{$ingredient->description}}</textarea>
+								<textarea id="description" name="description" class="materialize-textarea @error('unit_id') is-invalid @enderror">{{$ingredient->description}}</textarea>
+								@include('layouts.error', ['input' => 'description'])
 								<label for="description">Description</label>
 							</div>
 						</div>

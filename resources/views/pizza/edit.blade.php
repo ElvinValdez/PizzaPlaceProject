@@ -13,21 +13,24 @@
 						<h4>Pizza</h4>
 						<div class="row">
 							<div class="input-field col s6">
-								<input id="name" name="name" type="text" value="{{$pizza->name}}">
+								<input id="name" name="name" type="text" value="{{$pizza->name}}" class="@error('name') is-invalid @enderror">
+								@include('layouts.error', ['input' => 'name'])
 								<label for="name">Name</label>
 							</div>
 							<div class="input-field col s6">
-								<select name="size_id">
+								<select name="size_id" class="@error('size_id') is-invalid @enderror">
 									@foreach($sizes as $size)
 									<option value="{{$size->id}}" {{($pizza->size_id == $size->id)?'selected':''}}>{{$size->name}}</option>
 									@endforeach
 								</select>
+								@include('layouts.error', ['input' => 'size_id'])
 								<label>Size</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
-								<textarea id="description" name="description" class="materialize-textarea">{{$pizza->description}}</textarea>
+								<textarea id="description" name="description" class="materialize-textarea @error('description') is-invalid @enderror">{{$pizza->description}}</textarea>
+								@include('layouts.error', ['input' => 'description'])
 								<label for="description">Description</label>
 							</div>
 						</div>

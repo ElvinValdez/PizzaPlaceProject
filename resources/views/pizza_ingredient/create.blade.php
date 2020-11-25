@@ -12,15 +12,17 @@
 						<h4>Pizza Ingredient</h4>
 						<div class="row">
 							<div class="input-field col s8">
-								<select name="ingredient_id">
+								<select name="ingredient_id" class="@error('ingredient_id') is-invalid @enderror">
 									@foreach($ingredients as $ingredient)
 									<option value="{{$ingredient->id}}">{{$ingredient->name}} [{{$ingredient->unit->name}}]</option>
 									@endforeach
 								</select>
+								@include('layouts.error', ['input' => 'ingredient_id'])
 								<label>Ingredient</label>
 							</div>
 							<div class="input-field col s4">
-								<input id="quantity" name="quantity" type="text">
+								<input id="quantity" name="quantity" type="text" class="@error('quantity') is-invalid @enderror">
+								@include('layouts.error', ['input' => 'quantity'])
 								<label for="quantity">Quanity</label>
 							</div>
 						</div>
