@@ -13,13 +13,15 @@
 						<h4>Size</h4>
 						<div class="row">
 							<div class="input-field col s12">
-								<input id="name" name="name" type="text" value="{{$size->name}}">
+								<input id="name" name="name" type="text" value="{{$size->name}}" class="@error('name') is-invalid @enderror">
+								@include('layouts.error', ['input' => 'name'])
 								<label for="name">Name</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
-								<textarea id="description" name="description" class="materialize-textarea">{{$size->description}}</textarea>
+								<textarea id="description" name="description" class="materialize-textarea @error('description') is-invalid @enderror">{{$size->description}}</textarea>
+								@include('layouts.error', ['input' => 'description'])
 								<label for="description">Description</label>
 							</div>
 						</div>

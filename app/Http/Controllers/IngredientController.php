@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Unit;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
+use App\Http\Requests\IngredientCreateRequest;
+use App\Http\Requests\IngredientEditRequest;
 
 class IngredientController extends Controller
 {
@@ -32,10 +34,10 @@ class IngredientController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\IngredientCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(IngredientCreateRequest $request)
     {
         $input = $request->all();
         $ingredient = Ingredient::create($input);
@@ -71,11 +73,11 @@ class IngredientController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\IngredientEditRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(IngredientEditRequest $request, $id)
     {
         $input = $request->all();
         $ingredient = Ingredient::find($id);

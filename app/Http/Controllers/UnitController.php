@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use App\Http\Requests\UnitCreateRequest;
+use App\Http\Requests\UnitEditRequest;
 
 class UnitController extends Controller
 {
@@ -30,10 +32,10 @@ class UnitController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UnitCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UnitCreateRequest $request)
     {
         $input = $request->all();
         $unit = Unit::create($input);
@@ -67,11 +69,11 @@ class UnitController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UnitEditRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UnitEditRequest $request, $id)
     {
         $input = $request->all();
         $unit = Unit::find($id);

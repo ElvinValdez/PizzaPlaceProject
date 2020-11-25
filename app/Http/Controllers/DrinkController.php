@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Drink;
 use Illuminate\Http\Request;
+use App\Http\Requests\DrinkCreateRequest;
+use App\Http\Requests\DrinkEditRequest;
 
 class DrinkController extends Controller
 {
@@ -30,10 +32,10 @@ class DrinkController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\DrinkCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DrinkCreateRequest $request)
     {
         $input = $request->all();
         $drink = Drink::create($input);
@@ -67,11 +69,11 @@ class DrinkController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\DrinkEditRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DrinkEditRequest $request, $id)
     {
         $input = $request->all();
         $drink = Drink::find($id);

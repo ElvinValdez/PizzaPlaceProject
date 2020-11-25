@@ -13,17 +13,20 @@
 						<h4>Unit</h4>
 						<div class="row">
 							<div class="input-field col s6">
-								<input id="name" name="name" type="text" value="{{$unit->name}}">
+								<input id="name" name="name" type="text" value="{{$unit->name}}" class="@error('name') is-invalid @enderror">
+								@include('layouts.error', ['input' => 'name'])
 								<label for="name">Name</label>
 							</div>
 							<div class="input-field col s6">
-								<input id="symbol" name="symbol" type="text" value="{{$unit->symbol}}">
+								<input id="symbol" name="symbol" type="text" value="{{$unit->symbol}}" class="@error('symbol') is-invalid @enderror">
+								@include('layouts.error', ['input' => 'symbol'])
 								<label for="symbol">Symbol</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
-								<textarea id="description" name="description" class="materialize-textarea">{{$unit->description}}</textarea>
+								<textarea id="description" name="description" class="materialize-textarea @error('description') is-invalid @enderror">{{$unit->description}}</textarea>
+								@include('layouts.error', ['input' => 'description'])
 								<label for="description">Description</label>
 							</div>
 						</div>

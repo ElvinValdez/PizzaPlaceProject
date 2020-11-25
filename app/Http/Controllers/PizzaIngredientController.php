@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ingredient;
 use App\Models\IngredientPizza;
 use Illuminate\Http\Request;
+use App\Http\Requests\PizzaIngredientCreateRequest;
 
 class PizzaIngredientController extends Controller
 {
@@ -32,10 +33,10 @@ class PizzaIngredientController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\PizzaIngredientCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $pizza_id)
+    public function store(PizzaIngredientCreateRequest $request, $pizza_id)
     {
         $input = $request->all();
         $input['pizza_id'] = $pizza_id;
@@ -75,12 +76,12 @@ class PizzaIngredientController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\PizzaIngredientCreateRequest  $request
      * @param  int  $ingredient_id
      * @param  int  $pizza_id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $pizza_id, $ingredient_id)
+    public function update(PizzaIngredientCreateRequest $request, $pizza_id, $ingredient_id)
     {
         $input = $request->all();
         $pizza_ingredient = IngredientPizza::where(['pizza_id' => $pizza_id, 'ingredient_id' => $ingredient_id])->first();
