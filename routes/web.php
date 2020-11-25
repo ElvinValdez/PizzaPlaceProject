@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\CheckRole;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,28 +16,30 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('auth')->group(function() {
+    Route::get('/', 'AdminController@main')->name('main');
+
+    Route::middleware(CheckRole::class)->group(function() {    
+        Route::get('/dashboard', 'AdminController@index')->name('dashboard');
+
+        Route::resource('/drinks', 'DrinkController');
+
+        Route::resource('/ingredients', 'IngredientController');
+
+        Route::resource('/orders', 'OrderController');
+
+        Route::resource('/pizzas', 'PizzaController');
+
+        Route::resource('/pizzas/ingredients/{pizza_id}', 'PizzaIngredientController')->parameters(['{pizza_id}' => 'ingredient_id']);
+
+        Route::resource('/pizza_prices', 'PizzaPriceController');
+
+        Route::resource('/drink_prices', 'DrinkPriceController');
+
+        Route::resource('/sizes', 'SizeController');
+
+        Route::resource('/units', 'UnitController');
+
+        Route::resource('/users', 'UserController');
+    });
 });
-
-Route::get('/dashboard', 'AdminController@index')->name('dashboard');
-
-Route::resource('/drinks', 'DrinkController');
-
-Route::resource('/ingredients', 'IngredientController');
-
-Route::resource('/orders', 'OrderController');
-
-Route::resource('/pizzas', 'PizzaController');
-
-Route::resource('/pizzas/ingredients/{pizza_id}', 'PizzaIngredientController')->parameters(['{pizza_id}' => 'ingredient_id']);
-
-Route::resource('/pizza_prices', 'PizzaPriceController');
-
-Route::resource('/drink_prices', 'DrinkPriceController');
-
-Route::resource('/sizes', 'SizeController');
-
-Route::resource('/units', 'UnitController');
-
-Route::resource('/users', 'UserController');
