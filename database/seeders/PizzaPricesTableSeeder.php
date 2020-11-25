@@ -128,13 +128,13 @@ class PizzaPricesTableSeeder extends Seeder
             ],
             [
                 'id' => 19,
-                'date' => NULL,
+                'date' => '2020-08-03',
                 'price' => 12.99,
                 'pizza_id' => 3,
             ],
             [
                 'id' => 20,
-                'date' => '2020-08-03',
+                'date' => '2020-05-03',
                 'price' => 120,
                 'pizza_id' => 3,
             ],
@@ -164,9 +164,15 @@ class PizzaPricesTableSeeder extends Seeder
             ],
             [
                 'id' => 26,
-                'date' => '2020-08-03',
+                'date' => NULL,
                 'price' => 4.2,
                 'pizza_id' => 5,
+            ],
+            [
+                'id' => 27,
+                'date' => NULL,
+                'price' => 12.00,
+                'pizza_id' => 12,
             ],
         ]);
     }

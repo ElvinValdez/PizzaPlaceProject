@@ -10,6 +10,8 @@ use App\Models\OrderPizzaPrice;
 use App\Models\DrinkPriceOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
@@ -63,18 +65,22 @@ class OrderController extends Controller
         $seller = User::join('orders', 'orders.seller_user_id', 'users.id')
                     ->groupBy('orders.seller_user_id')
                     ->select([DB::raw("COUNT(*) as times"), DB::raw('users.id')])
-                    ->orderBy('id', 'asc')
+                    ->orderBy('id', 'desc')
                     ->first();
         
         $input['customer_user_id'] = Auth::id();
         $input['seller_user_id']   = $seller->id;
-
         $order = Order::create($input);
         $input['order_id'] = $order->id;
 
-        $order_pizza_price = OrderPizzaPrice::create(array_merge($input, $request->only('pizza_quantity')));
-        $order_drink_price = DrinkPriceOrder::create(array_merge($input, $request->only('drink_quantity')));
+        $order_pizza_price = ($request->get('pizza_price_id') > '0') 
+                           ? OrderPizzaPrice::create(array_merge($input, $request->only('pizza_quantity'))) 
+                           : '';
+        $order_drink_price = ($request->get('drink_price_id') > '0')
+                           ? DrinkPriceOrder::create(array_merge($input, $request->only('drink_quantity')))
+                           : '';
 
+        Session::flash('success', 'Your order has been placed');
         return redirect()->route('orders.create');
     }
 

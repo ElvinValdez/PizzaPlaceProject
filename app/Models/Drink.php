@@ -21,4 +21,9 @@ class Drink extends Model
     {
         return $this->hasMany('App\Models\DrinkPrice', 'drink_id', 'id')->where('date', '!=', NULL);
     }
+
+    public function price()
+    {
+        return $this->hasOne('App\Models\DrinkPrice', 'drink_id', 'id')->where('date', '=', NULL);
+    }
 }

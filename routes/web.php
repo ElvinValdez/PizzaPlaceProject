@@ -17,7 +17,9 @@ use App\Http\Middleware\CheckRole;
 Auth::routes();
 
 Route::middleware('auth')->group(function() {
-    Route::get('/', 'AdminController@main')->name('main');
+    Route::get ('/', 'AdminController@main')->name('main');
+    Route::post('/orders', 'OrderController@store')->name('orders.store');
+    Route::get ('/orders/create', 'OrderController@create')->name('orders.create');
 
     Route::middleware(CheckRole::class)->group(function() {    
         Route::get('/dashboard', 'AdminController@index')->name('dashboard');
@@ -26,7 +28,7 @@ Route::middleware('auth')->group(function() {
 
         Route::resource('/ingredients', 'IngredientController');
 
-        Route::resource('/orders', 'OrderController');
+        Route::resource('/orders', 'OrderController')->except(['create', 'store']);
 
         Route::resource('/pizzas', 'PizzaController');
 

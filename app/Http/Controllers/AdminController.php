@@ -52,7 +52,7 @@ class AdminController extends Controller
      */
     public function main()
     {
-        return view('order.create');
+        return redirect()->route('orders.create');
     }
 
     /**
