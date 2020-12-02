@@ -17,6 +17,7 @@ class CreateDrinksTable extends Migration
             $table->id();
             $table->string('name', 127);
             $table->text('description');
+            $table->string('image')->nullable();
             $table->timestamps();
             $table->string('size', 20);
         });

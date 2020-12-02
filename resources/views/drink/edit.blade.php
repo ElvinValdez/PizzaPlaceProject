@@ -7,7 +7,7 @@
 		<div class="col s6 offset-s3">
 			<div class="card-panel green lighten-5">
 				<div class="row">
-					<form class="col s12" action="{{route('drinks.update', ['drink' => $drink->id])}}" method="POST">
+					<form class="col s12" action="{{route('drinks.update', ['drink' => $drink->id])}}" method="POST" enctype="multipart/form-data">
 						@csrf
 						<input type="hidden" name="_method" value="PUT">
 						<h4>Drink</h4>
@@ -29,6 +29,13 @@
 								@include('layouts.error', ['input' => 'description'])
 								<label for="description">Description</label>
 							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input class="@error('image') is-invalid @enderror" id="image" name="image" type="file">
+								@include('layouts.error', ['input' => 'image'])
+							</div>
+							@if(isset($drink->image))<img src="{{$drink->image}}" class="" width="250" >@endif
 						</div>
 						<div class="row">
 							<div class="col s12 center-align">

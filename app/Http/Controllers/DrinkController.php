@@ -6,6 +6,8 @@ use App\Models\Drink;
 use Illuminate\Http\Request;
 use App\Http\Requests\DrinkCreateRequest;
 use App\Http\Requests\DrinkEditRequest;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class DrinkController extends Controller
 {
@@ -38,6 +40,16 @@ class DrinkController extends Controller
     public function store(DrinkCreateRequest $request)
     {
         $input = $request->all();
+        
+        if ($request->hasFile('image')) {
+            $image    = $request->file('image');
+            $fileName = "/drinks/" . md5(time()) . '.' . $image->getClientOriginalExtension();
+            $img      = Image::make($image->getRealPath());
+            $img->stream();
+            Storage::disk('public')->put($fileName, $img);
+            $input['image'] = '/storage' . $fileName;
+        }
+
         $drink = Drink::create($input);
 
         return redirect()->to(route('dashboard')."#pizzas_and_drinks");
@@ -77,6 +89,15 @@ class DrinkController extends Controller
     {
         $input = $request->all();
         $drink = Drink::find($id);
+
+        if ($request->hasFile('image')) {
+            $image    = $request->file('image');
+            $fileName = "/drinks/" . md5(time()) . '.' . $image->getClientOriginalExtension();
+            $img      = Image::make($image->getRealPath());
+            $img->stream();
+            Storage::disk('public')->put($fileName, $img);
+            $input['image'] = '/storage' . $fileName;
+        }
 
         if (!empty($drink))
             $drink->update($input);
