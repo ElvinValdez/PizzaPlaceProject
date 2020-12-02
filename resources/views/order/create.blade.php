@@ -24,7 +24,7 @@
 				<div class="col s6">
 					<div class="card">
 						<div class="card-image">
-							<img src="{{asset('/img/pepperoni.png')}}">
+							<img src="@if(isset($pizza->image)) {{$pizza->image}} @else {{asset('/img/pepperoni.png')}}@endif">
 							<button onclick="addPizza(this)" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">shopping_cart</i></button>
 						</div>
 						<div class="card-content">
@@ -51,7 +51,7 @@
 				<div class="col s6">
 					<div class="card">
 						<div class="card-image">
-							<img src="{{asset('/img/cocacola.png')}}">
+							<img src="@if(isset($drink->image)) {{$drink->image}} @else {{asset('/img/cocacola.png')}}@endif">
 							<button onclick="addDrink(this)" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">shopping_cart</i></button>
 						</div>
 						<div class="card-content">
