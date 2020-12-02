@@ -16,6 +16,7 @@ class Pizza extends Model
         'name',
         'description',
         'size_id',
+        'image',
     ];
 
     public $appends = [

@@ -8,6 +8,8 @@ use App\Models\PizzaPrice;
 use Illuminate\Http\Request;
 use App\Http\Requests\PizzaCreateRequest;
 use App\Http\Requests\PizzaEditRequest;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class PizzaController extends Controller
 {
@@ -41,6 +43,14 @@ class PizzaController extends Controller
     public function store(PizzaCreateRequest $request)
     {
         $input = $request->all();
+        if ($request->hasFile('image')) {
+            $image    = $request->file('image');
+            $fileName = "/pizzas/" . md5(time()) . '.' . $image->getClientOriginalExtension();
+            $img      = Image::make($image->getRealPath());
+            $img->stream();
+            Storage::disk('public')->put($fileName, $img);
+            $input['image'] = '/storage' . $fileName;
+        }
         $pizza = Pizza::create($input);
         $input['pizza_id'] = $pizza->id;
         $pizza_price = PizzaPrice::create($input);
@@ -83,6 +93,15 @@ class PizzaController extends Controller
     {
         $input = $request->all();
         $pizza = Pizza::find($id);
+
+        if ($request->hasFile('image')) {
+            $image    = $request->file('image');
+            $fileName = "/pizzas/" . md5(time()) . '.' . $image->getClientOriginalExtension();
+            $img      = Image::make($image->getRealPath());
+            $img->stream();
+            Storage::disk('public')->put($fileName, $img);
+            $input['image'] = '/storage' . $fileName;
+        }
 
         if (!empty($pizza))
             $pizza->update($input);
