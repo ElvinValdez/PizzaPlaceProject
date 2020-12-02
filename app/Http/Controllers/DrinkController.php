@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Drink;
+use App\Models\DrinkPrice;
 use Illuminate\Http\Request;
 use App\Http\Requests\DrinkCreateRequest;
 use App\Http\Requests\DrinkEditRequest;
@@ -51,6 +52,8 @@ class DrinkController extends Controller
         }
 
         $drink = Drink::create($input);
+        $input['drink_id'] = $drink->id;
+        $drink_price = DrinkPrice::create($input);
 
         return redirect()->to(route('dashboard')."#pizzas_and_drinks");
     }

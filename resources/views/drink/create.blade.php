@@ -11,15 +11,20 @@
 						@csrf
 						<h4>Drink</h4>
 						<div class="row">
-							<div class="input-field col s6">
+							<div class="input-field col s5">
 								<input id="name" name="name" type="text" class="@error('name') is-invalid @enderror" >
 								@include('layouts.error', ['input' => 'name'])
 								<label for="name">Name</label>
 							</div>
-							<div class="input-field col s6">
+							<div class="input-field col s3">
 								<input id="size" name="size" type="text" class="@error('size') is-invalid @enderror">
 								@include('layouts.error', ['input' => 'size'])
 								<label for="size">Size</label>
+							</div>
+							<div class="input-field col s4">
+								<input id="price" name="price" type="text" class="@error('price') is-invalid @enderror">
+								@include('layouts.error', ['input' => 'price'])
+								<label for="description">price</label>
 							</div>
 						</div>
 						<div class="row">
