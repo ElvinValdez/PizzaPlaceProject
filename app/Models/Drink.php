@@ -15,6 +15,7 @@ class Drink extends Model
         'name',
         'description',
         'size',
+        'image',
     ];
 
     public function prices()

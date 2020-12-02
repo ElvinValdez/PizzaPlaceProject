@@ -7,7 +7,7 @@
 		<div class="col s6 offset-s3">
 			<div class="card-panel green lighten-5">
 				<div class="row">
-					<form class="col s12" method="POST" action="{{route('pizzas.store')}}">
+					<form class="col s12" method="POST" action="{{route('pizzas.store')}}" enctype="multipart/form-data">
 						@csrf
 						<h4>Pizza</h4>
 						<div class="row">
@@ -36,6 +36,12 @@
 								<textarea id="description" name="description" class="materialize-textarea @error('description') is-invalid @enderror"></textarea>
 								@include('layouts.error', ['input' => 'description'])
 								<label for="description">Description</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input class="@error('image') is-invalid @enderror" id="image" name="image" type="file">
+								@include('layouts.error', ['input' => 'image'])
 							</div>
 						</div>
 						<div class="row">
