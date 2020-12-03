@@ -25,11 +25,13 @@ class RoleHasPermissionsTableSeeder extends Seeder
         $chef_role_id     = Role::findByName('chef')->id;
 
         $permissions_for_customer = [
-            
+            'orders.create',
+            'orders.store',
+            'main',
         ];
 
         $permissions_for_cashier = [
-
+            '*',
         ];
 
         $permissions_for_driver = [
@@ -46,13 +48,13 @@ class RoleHasPermissionsTableSeeder extends Seeder
                     $this->insert_permission($role_id, $permission->id);
                 continue;
             }*/
-            if (in_array($permission->name, $permissions_for_cashier))
+            if (in_array($permission->name, $permissions_for_cashier) || in_array('*', $permissions_for_cashier))
                 $this->insert_permission($cashier_role_id, $permission->id);
-            if (in_array($permission->name, $permissions_for_customer))
+            if (in_array($permission->name, $permissions_for_customer) || in_array('*', $permissions_for_customer))
                 $this->insert_permission($customer_role_id, $permission->id);
-            if (in_array($permission->name, $permissions_for_driver))
+            if (in_array($permission->name, $permissions_for_driver) || in_array('*', $permissions_for_driver))
                 $this->insert_permission($driver_role_id, $permission->id);
-            if (in_array($permission->name, $permissions_for_chef))
+            if (in_array($permission->name, $permissions_for_chef) || in_array('*', $permissions_for_chef))
                 $this->insert_permission($chef_role_id, $permission->id);
         }
     }
