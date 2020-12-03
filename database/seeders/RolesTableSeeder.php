@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RolesTableSeeder extends Seeder
 {
@@ -14,20 +16,9 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('roles')->delete();
-
-        DB::table('roles')
-            ->insert([
-                0 => [
-                    'id' => 1,
-                    'name' => 'customer',
-                    'description' => ' ',
-                ],
-                1 => [
-                    'id' => 2,
-                    'name' => 'employee',
-                    'description' => ' ',
-                ],
-            ]);
+        Role::create(['name' => 'customer']);
+        Role::create(['name' => 'cashier']);
+        Role::create(['name' => 'driver']);
+        Role::create(['name' => 'chef']);
     }
 }

@@ -8,9 +8,10 @@ use App\Models\Ingredient;
 use App\Models\Size;
 use App\Models\Drink;
 use App\Models\Pizza;
-use App\Models\Role;
 use App\Models\PizzaPrice;
 use App\Models\DrinkPrice;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller

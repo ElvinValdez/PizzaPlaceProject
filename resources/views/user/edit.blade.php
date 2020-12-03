@@ -44,7 +44,7 @@
 							<div class="input-field col s6">
 								<select name="role_id" class="@error('role_id') is-invalid @enderror">
 									@foreach($roles as $role)
-									<option value="{{$role->id}}" {{($role->id == $user->role_id) ? 'selected' : ''}}>{{$role->name}}</option>
+									<option value="{{$role->id}}" {{($user->hasRole($role->name)) ? 'selected' : ''}}>{{$role->name}}</option>
 									@endforeach
 								</select>
 								@include('layouts.error', ['input' => 'role_id'])
