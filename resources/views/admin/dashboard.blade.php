@@ -60,7 +60,7 @@
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->first_name}}</td>
                                 <td>{{$user->last_name}}</td>
-                                <td>{{$user->role->name}}</td>
+                                <td>{{implode(", ", $user->getRoleNames()->toArray())}}</td>
                                 <td><a href="{{route('users.edit', ['user' => $user->id])}}" class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
                                 <td>
                                     <form action="{{route('users.destroy', ['user' => $user->id])}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this element?')">

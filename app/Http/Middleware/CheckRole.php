@@ -17,13 +17,12 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next)
     {
-        //if (Auth::check()) {
-            if (Auth::user()->role_id == 1) {
-                return redirect()->route('main');
-            } else if (Auth::user()->role_id == 2) {
-                return $next($request);
-            }
-        //}
+        $user = Auth::user();
+        if ($user->hasRole('customer')) {
+            return redirect()->route('main');
+        } else if ($user->hasRole('cashier')) {
+            return $next($request);
+        }
         return $next($request);
     }
 }
