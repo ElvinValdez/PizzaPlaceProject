@@ -22,22 +22,33 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
+        $user   = Auth::user();
         $search = $request->get('search');
+        
+        $orders = (isset($search)) 
+                ? Order::join('users as u1', 'u1.id', '=', 'orders.customer_user_id')
+                    ->join('users as u2', 'u2.id', '=', 'orders.seller_user_id')
+                    ->when($user->hasRole('customer'), function($query) use ($user) {
+                        return $query->where('orders.customer_user_id', $user->id);
+                    })
+                    ->where('u1.username', 'like', "%$search%")
+                    ->orWhere('u2.username', 'like', "%$search%")
+                    ->orWhere('orders.address', 'like', "%$search%")
+                    ->orWhere('orders.time', 'like', "%$search%")
+                    ->get()
+                : Order::when($user->hasRole('customer'), function($query) use ($user) {
+                            return $query->where('orders.customer_user_id', $user->id);
+                        })
+                        ->get();
 
-        $orders       = (isset($search)) 
-                      ? Order::join('users as u1', 'u1.id', '=', 'orders.customer_user_id')
-                           ->join('users as u2', 'u2.id', '=', 'orders.seller_user_id')
-                           ->where('u1.username', 'like', "%$search%")
-                           ->orWhere('u2.username', 'like', "%$search%")
-                           ->orWhere('orders.address', 'like', "%$search%")
-                           ->orWhere('orders.time', 'like', "%$search%")
-                           ->get()
-                      : Order::all();
-                      
         $order_pizzas = OrderPizzaPrice::all();
         $order_drinks = DrinkPriceOrder::all();
-        
-        return view("order.index", compact('orders', 'order_pizzas', 'order_drinks'));
+
+        return view(($user->hasRole('cashier')) 
+            ? "order.index" 
+            : "order.customer", compact('orders', 'order_pizzas', 'order_drinks'));
+
+        return redirect()->route('orders.create');
     }
 
     /**
@@ -62,11 +73,12 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $input = $request->except(['pizza_quantity', 'drink_quantity']);
-        $seller = User::join('orders', 'orders.seller_user_id', 'users.id')
-                    ->groupBy('orders.seller_user_id')
-                    ->select([DB::raw("COUNT(*) as times"), DB::raw('users.id')])
-                    ->orderBy('id', 'desc')
-                    ->first();
+        $seller = User::role('cashier')
+                       ->select([DB::raw("COUNT('orders.seller_user_id') as times"), DB::raw('users.id')])            
+                       ->leftJoin('orders', 'orders.seller_user_id', 'users.id')
+                       ->groupBy('users.id')
+                       ->orderBy('times', 'asc')
+                       ->first();
         
         $input['customer_user_id'] = Auth::id();
         $input['seller_user_id']   = $seller->id;

@@ -33,7 +33,8 @@ class Permissions
         $permission = $request->route()->getName();
 
         if ($this->match($request->route()) && auth()->user()->canNot($permission))
-            throw new UnauthorizedException(403, 'User does not have the permission: ' . $permission);
+            return redirect()->route('main');
+            //throw new UnauthorizedException(403, 'User does not have the permission: ' . $permission);
 
         return $next($request);
     }

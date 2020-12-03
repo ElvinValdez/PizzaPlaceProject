@@ -25,6 +25,7 @@ class RoleHasPermissionsTableSeeder extends Seeder
         $chef_role_id     = Role::findByName('chef')->id;
 
         $permissions_for_customer = [
+            'orders.index',
             'orders.create',
             'orders.store',
             'main',
