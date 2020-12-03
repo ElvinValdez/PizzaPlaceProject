@@ -17,14 +17,16 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('customer_user_id');
             $table->unsignedBigInteger('seller_user_id');
+            $table->unsignedBigInteger('order_status_id');
             $table->text('address')->nullable();
             $table->timestamp('time')->nullable()->useCurrent();
-            $table->boolean('sent')->default(0);
             $table->timestamps();
 
             $table->foreign('customer_user_id')->references('id')->on('users')
                   ->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('seller_user_id')->references('id')->on('users')
+                  ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('order_status_id')->references('id')->on('order_statuses')
                   ->onDelete('cascade')->onUpdate('cascade');
         });
     }
