@@ -27,21 +27,22 @@
 								<th>Client</th>
 								<th>Seller</th>
 								<th>Address</th>
+								<th>Status</th>
 								<th>Time</th>
 								<th></th>
-								<th>Sent</th>
 								<th></th>
 							</tr>
 						</thead>
 
 						<tbody>
 							@foreach($orders as $order)
-							@if(!$order->sent)
+							@if($order->order_status_id == 1)
 							<tr>
 								<td>{{$order->id}}</td>
 								<td>{{$order->customer->username}}</td>
 								<td>{{$order->seller->username}}</td>
 								<td>{{$order->address}}</td>
+								<td>{{$order->order_status->status}}</td>
 								<td>{{$order->time}}</td>
 								<td>
 								<a class="waves-effect waves-light btn modal-trigger green darken-4" href="#modal-order-{{$order->id}}"><i class="material-icons">visibility</i></a>
@@ -97,13 +98,6 @@
 								</div>
 							</td>
 								<td>
-									<form action="{{route('orders.update', ['order' => $order->id])}}" method="POST">
-										@csrf 
-										@method('PUT')
-										<button type="submit" class="waves-effect waves-light btn-small green darken-1" ><i class="material-icons">send</i></button>
-									</form>
-								</td>
-								<td>
 									<form action="{{route('orders.destroy', ['order' => $order->id])}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this order?')">
 										@csrf
 										@method('DELETE')
@@ -134,6 +128,7 @@
 								<th>Client</th>
 								<th>Seller</th>
 								<th>Address</th>
+								<th>Status</th>
 								<th>Time</th>
 								<th></th>
 								<th></th>
@@ -142,12 +137,13 @@
 
 						<tbody>
 							@foreach($orders as $order)
-							@if($order->sent)
+							@if($order->order_status_id != 1)
 							<tr>
 								<td>{{$order->id}}</td>
 								<td>{{$order->customer->username}}</td>
 								<td>{{$order->seller->username}}</td>
 								<td>{{$order->address}}</td>
+								<td>{{$order->order_status->status}}</td>
 								<td>{{$order->time}}</td>
 								<td>
 								<a class="waves-effect waves-light btn modal-trigger green darken-4" href="#modal-order-history-{{$order->id}}"><i class="material-icons">visibility</i></a>

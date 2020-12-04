@@ -28,7 +28,15 @@
                 </a>
                 <ul class="right">
                     @auth
+                    @can('dashboard')
+                    <li><a href="{{route('dashboard')}}">Dashboard</a></li>
+                    @endcan
+                    @can('orders.index')
                     <li><a href="{{route('orders.index')}}">Orders</a></li>
+                    @endcan
+                    @can('orders.create')
+                    <li><a href="{{route('orders.create')}}">Order now</a></li>
+                    @endcan
                     <li>
                         <form id="logout" action="{{route('logout')}}" method="POST">
                         @csrf

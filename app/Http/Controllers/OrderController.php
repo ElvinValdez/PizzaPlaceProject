@@ -56,14 +56,15 @@ class OrderController extends Controller
         $order_pizzas = OrderPizzaPrice::all();
         $order_drinks = DrinkPriceOrder::all();
 
-        if ($user->hasRole('chef'))
-            return view("order.chef", compact('orders', 'order_pizzas', 'order_drinks'));
-        if ($user->hasRole('customer'))
-            return view("order.customer", compact('orders', 'order_pizzas', 'order_drinks'));
-        if ($user->hasRole('driver'))
-            return view("order.driver", compact('orders', 'order_pizzas', 'order_drinks'));
+        $view = $user->hasRole('chef')
+                ? "order.chef" 
+                : ($user->hasRole('customer') 
+                    ? "order.customer"
+                    : ($user->hasRole('driver')
+                        ? "order.driver"
+                        : "order.index"));
 
-        return view("order.index", compact('orders', 'order_pizzas', 'order_drinks'));
+        return view($view, compact('orders', 'order_pizzas', 'order_drinks'));
     }
 
     /**
