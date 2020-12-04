@@ -28,6 +28,7 @@ class RoleHasPermissionsTableSeeder extends Seeder
             'orders.index',
             'orders.create',
             'orders.store',
+            'orders.destroy',
             'main',
         ];
 
@@ -36,11 +37,17 @@ class RoleHasPermissionsTableSeeder extends Seeder
         ];
 
         $permissions_for_driver = [
-
+            'orders.index',
+            'orders.show',
+            'orders.deliver',
+            'orders.delivered',
         ];
 
         $permissions_for_chef = [
-
+            'orders.index',
+            'orders.update',
+            'orders.show',
+            'orders.destroy',
         ];
         
         foreach($permissions as $permission) {

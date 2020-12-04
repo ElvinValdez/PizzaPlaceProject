@@ -14,6 +14,8 @@ class Order extends Model
     public $fillable = [
         'customer_user_id',
         'seller_user_id',
+        'driver_user_id',
+        'chef_user_id',
         'order_status_id',
         'address',
         'time',
@@ -27,6 +29,16 @@ class Order extends Model
     public function seller()
     {
         return $this->belongsTo('App\Models\User', 'seller_user_id');
+    }
+
+    public function driver()
+    {
+        return $this->belongsTo('App\Models\User', 'driver_user_id');
+    }
+
+    public function chef()
+    {
+        return $this->belongsTo('App\Models\User', 'chef_user_id');
     }
 
     public function order_status()

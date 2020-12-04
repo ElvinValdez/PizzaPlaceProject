@@ -16,6 +16,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->delete();
+
         $user = User::create([
             'id' => 1,
             'first_name' => 'Admin',
@@ -34,7 +36,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'lizzymoon@gmail.com',
             'password' => Hash::make('123liz'),
         ]);
-        $user->assignRole('cashier');
+        $user->assignRole('chef');
         
         $user = User::create([
             'id' => 3,
@@ -85,5 +87,15 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('night657'),
         ]);
         $user->assignRole('cashier');
+
+        $user = User::create([
+            'id' => 8,
+            'first_name' => 'vitoria',
+            'last_name' => 'dulliu',
+            'username' => 'vitoriadulliu',
+            'email' => '5vitoriadulliu@ikimaru.com',
+            'password' => Hash::make('vitoria123'),
+        ]);
+        $user->assignRole('driver');
     }
 }

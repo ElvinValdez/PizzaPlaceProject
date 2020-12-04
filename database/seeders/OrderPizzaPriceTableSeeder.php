@@ -47,12 +47,7 @@ class OrderPizzaPriceTableSeeder extends Seeder
                 'pizza_price_id' => 13,
                 'order_id' => 6,
                 'quantity' => 3,
-            ],
-            [
-                'pizza_price_id' => 17,
-                'order_id' => 3,
-                'quantity' => 1,
-            ],
+            ]
         ]);
     }
 }

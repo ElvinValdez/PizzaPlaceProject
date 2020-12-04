@@ -11,6 +11,8 @@ class OrderStatus extends Model
 
     public $table = 'order_statuses';
 
+    public $timestamps = false;
+
     public $fillable = [
         'status',
     ];
