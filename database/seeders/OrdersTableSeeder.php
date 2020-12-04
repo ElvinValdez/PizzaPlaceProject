@@ -20,7 +20,7 @@ class OrdersTableSeeder extends Seeder
             ->insert([
                 [
                     'id' => 1,
-                    'customer_user_id' => 2,
+                    'customer_user_id' => 6,
                     'seller_user_id' => 7,
                     'order_status_id' => 1,
                     'address' => 'Sunny Estates, Gardnersville, NY', 

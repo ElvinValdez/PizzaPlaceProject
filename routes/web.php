@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function() {
     Route::resource('/ingredients', 'IngredientController');
 
     Route::resource('/orders', 'OrderController');
+    Route::get     ('/orders/{order}/deliver', 'OrderController@deliver')->name('orders.deliver');
+    Route::put     ('/orders/{order}/deliver', 'OrderController@delivered')->name('orders.delivered');
 
     Route::resource('/pizzas', 'PizzaController');
 

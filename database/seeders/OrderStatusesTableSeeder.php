@@ -24,15 +24,27 @@ class OrderStatusesTableSeeder extends Seeder
                 ],
                 1 => [
                     'id' => 2,
-                    'status' => 'Assigned',
+                    'status' => 'Assigned to a chef',
                 ],
                 2 => [
                     'id' => 3,
-                    'status' => 'Sent',
+                    'status' => 'Waiting to the driver',
                 ],
                 3 => [
                     'id' => 4,
-                    'status' => 'Delivered',
+                    'status' => 'Order sent',
+                ],
+                4 => [
+                    'id' => 5,
+                    'status' => 'Order delivered successfully',
+                ],
+                5 => [
+                    'id' => 6,
+                    'status' => 'Order refused',
+                ],
+                6 => [
+                    'id' => 7,
+                    'status' => 'Order cancelled'
                 ],
             ]);
     }

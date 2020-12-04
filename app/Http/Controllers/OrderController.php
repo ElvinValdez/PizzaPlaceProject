@@ -31,6 +31,12 @@ class OrderController extends Controller
                     ->when($user->hasRole('customer'), function($query) use ($user) {
                         return $query->where('orders.customer_user_id', $user->id);
                     })
+                    /*->when($user->hasRole('chef'), function($query) use ($user) {
+                        return $query->where('orders.order_status_id', 1);
+                    })*/
+                    /*->when($user->hasRole('driver'), function($query) use ($user) {
+                        return $query->where('orders.order_status_id', 3);
+                    })*/
                     ->where('u1.username', 'like', "%$search%")
                     ->orWhere('u2.username', 'like', "%$search%")
                     ->orWhere('orders.address', 'like', "%$search%")
@@ -39,16 +45,26 @@ class OrderController extends Controller
                 : Order::when($user->hasRole('customer'), function($query) use ($user) {
                             return $query->where('orders.customer_user_id', $user->id);
                         })
+                        /*->when($user->hasRole('chef'), function($query) use ($user) {
+                            return $query->whereIn('orders.order_status_id', [1,2]);
+                        })*/
+                        /*->when($user->hasRole('driver'), function($query) use ($user) {
+                            return $query->where('orders.order_status_id', 3);
+                        })*/
                         ->get();
 
         $order_pizzas = OrderPizzaPrice::all();
         $order_drinks = DrinkPriceOrder::all();
 
-        return view(($user->hasRole('cashier')) 
-            ? "order.index" 
-            : "order.customer", compact('orders', 'order_pizzas', 'order_drinks'));
+        $view = $user->hasRole('chef')
+                ? "order.chef" 
+                : ($user->hasRole('customer') 
+                    ? "order.customer"
+                    : ($user->hasRole('driver')
+                        ? "order.driver"
+                        : "order.index"));
 
-        return redirect()->route('orders.create');
+        return view($view, compact('orders', 'order_pizzas', 'order_drinks'));
     }
 
     /**
@@ -104,7 +120,22 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::findOrFail($id);
+
+        if ($order->order_status_id == 1) {
+            $order->order_status_id = 2;
+            $order->chef_user_id = Auth::id();
+            $order->save();
+            Session::flash('success', 'You have taken the order #'.$order->id);
+        }
+
+        $order_pizza = OrderPizzaPrice::where('order_id', $id)->first();
+        $order_drink = DrinkPriceOrder::where('order_id', $id)->first();
+        
+        $pizza = ($order_pizza) ? $order_pizza->pizza_price->pizza : null;
+        $drink = ($order_drink) ? $order_drink->drink_price->drink : null;
+
+        return view('order.show', compact('order', 'order_pizza', 'order_drink', 'pizza', 'drink'));
     }
 
     /**
@@ -130,10 +161,54 @@ class OrderController extends Controller
         $order = Order::find($id);
 
         if (!empty($order)) {
-            $sent = $order->sent;
-            $order->update(['sent' => (int)!$sent]);
+            $order->order_status_id = 3;
+            $order->save();
+        }
+         
+        Session::flash('success', 'The order has been marked as deliverable');
+        return redirect()->route('orders.index');
+    }
+
+    /**
+     * 
+     * 
+     */
+    public function deliver($id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order->order_status_id == 3) {
+            $order->order_status_id = 4;
+            $order->driver_user_id = Auth::id();
+            $order->save();
+            Session::flash('success', 'You have taken the order #'.$order->id);
+        }
+
+        $order_pizza = OrderPizzaPrice::where('order_id', $id)->first();
+        $order_drink = DrinkPriceOrder::where('order_id', $id)->first();
+        
+        $pizza = ($order_pizza) ? $order_pizza->pizza_price->pizza : null;
+        $drink = ($order_drink) ? $order_drink->drink_price->drink : null;
+
+        $driver = true;
+
+        return view('order.show', compact('order', 'order_pizza', 'order_drink', 'pizza', 'drink', 'driver'));
+    }
+
+    /**
+     * 
+     * 
+     */
+    public function delivered($id)
+    {
+        $order = Order::find($id);
+
+        if (!empty($order)) {
+            $order->order_status_id = 5;
+            $order->save();
         }
             
+        Session::flash('success', 'The order has been delivered successfully');
         return redirect()->route('orders.index');
     }
 
@@ -146,9 +221,20 @@ class OrderController extends Controller
     public function destroy($id)
     {
         $order = Order::find($id);
+        $user  = Auth::user();
 
-        if (!empty($order))
-            Order::destroy($id);
+        if (!empty($order)) {
+            if ($user->hasRole('customer')) {
+                if ($order->customer_user_id == Auth::id()) {
+                    $order->order_status_id = 7;
+                    Session::flash('success', 'The order has been cancelled');
+                }
+            } else if ($user->hasRole('chef') || $user->hasRole('cashier')) {
+                $order->order_status_id = 6;
+                Session::flash('success', 'The order has been refused');
+            }
+            $order->save();
+        }
         
         return redirect()->route('orders.index');
     }
