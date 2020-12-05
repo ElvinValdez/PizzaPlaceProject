@@ -7,7 +7,7 @@
 		<div class="col s6 offset-s3">
 			<div class="card-panel green lighten-5">
 				<div class="row">
-					<form class="col s12" method="POST" action="@if(isset($pizza)){{route('pizza_prices.update', ['pizza_price' => $price->id])}}@elseif(isset($drink)){{route('drink_prices.update', ['drink_price' => $price->id])}}@endif">
+					<form class="col s12" method="POST" action="@if(isset($pizza)){{route('pizza_sizes.update', ['pizza_size' => $price->id])}}@elseif(isset($drink)){{route('drink_prices.update', ['drink_price' => $price->id])}}@endif">
 					@csrf
 					@method('PUT')
 					<h4>Price</h4>

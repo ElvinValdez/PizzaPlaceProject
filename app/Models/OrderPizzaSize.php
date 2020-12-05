@@ -5,20 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PizzaPrice extends Model
+class OrderPizzaSize extends Model
 {
     use HasFactory;
 
-    public $table = 'pizza_prices';
+    public $table = 'order_pizza_size';
 
     public $fillable = [
-        'date',
-        'price',
         'pizza_size_id',
+        'order_id',
+        'quantity',
     ];
 
     public function pizza_size()
     {
         return $this->belongsTo('App\Models\PizzaSize');
+    }
+
+    public function order()
+    {
+        return $this->belongsTo('App\Models\Order');
     }
 }

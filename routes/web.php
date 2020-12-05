@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function() {
 
     Route::resource('/pizzas/ingredients/{pizza_id}', 'PizzaIngredientController')->parameters(['{pizza_id}' => 'ingredient_id']);
 
-    Route::resource('/pizza_prices', 'PizzaPriceController');
+    Route::resource('/pizza_sizes', 'PizzaSizeController');
 
     Route::resource('/drink_prices', 'DrinkPriceController');
 

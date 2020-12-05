@@ -2,19 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Unit;
-use App\Models\Ingredient;
-use App\Models\Size;
-use App\Models\Drink;
 use App\Models\Pizza;
 use App\Models\PizzaSize;
-use App\Models\DrinkPrice;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use Illuminate\Http\Request;
+use App\Http\Requests\PizzaSizeEditRequest;
 
-class AdminController extends Controller
+class PizzaSizeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,37 +16,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users        = User::all();
-        $units        = Unit::all();
-        $ingredients  = Ingredient::all();
-        $sizes        = Size::all();
-        $drinks       = Drink::all();
-        $pizzas       = Pizza::all();
-        $roles        = Role::all();
-        $pizza_sizes  = PizzaSize::where('date', '=', NULL)->get();
-        $drink_prices = DrinkPrice::where('date', '=', NULL)->get();
-
-        return view('admin.dashboard', compact('users', 'units', 'ingredients', 'sizes', 'drinks', 'pizzas', 'roles', 'pizza_sizes', 'drink_prices'));
-    }
-
-    /**
-     * Shows admin dashboard
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function dashboard()
-    {
-        return view('admin.dashboard');
-    }
-
-    /**
-     * Shows order creation
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function main()
-    {
-        return redirect()->route('orders.create');
+        //
     }
 
     /**
@@ -96,19 +59,31 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        $price  = PizzaSize::find($id);
+        $pizza  = $price->pizza;
+
+        return view('price.edit', compact('price', 'pizza'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\PizzaSizeEditRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PizzaSizeEditRequest $request, $id)
     {
-        //
+        $price = $request->get('price');
+
+        $old_price = PizzaSize::find($id);
+        $old_price->update(['date' => now()]);
+        $new_price = $old_price->replicate();
+        $new_price->date = NULL;
+        $new_price->price = $price;
+        $new_price->push();
+
+        return redirect()->to(route('dashboard')."#units_ingredients_sizes_prices");
     }
 
     /**

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pizza;
+use App\Models\PizzaSize;
 use App\Models\Drink;
 use App\Models\User;
 use App\Models\Order;
-use App\Models\OrderPizzaPrice;
+use App\Models\OrderPizzaSize;
 use App\Models\DrinkPriceOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -53,7 +54,7 @@ class OrderController extends Controller
                         })*/
                         ->get();
 
-        $order_pizzas = OrderPizzaPrice::all();
+        $order_pizzas = OrderPizzaSize::all();
         $order_drinks = DrinkPriceOrder::all();
 
         $view = $user->hasRole('chef')
@@ -102,8 +103,8 @@ class OrderController extends Controller
         $order = Order::create($input);
         $input['order_id'] = $order->id;
 
-        $order_pizza_price = ($request->get('pizza_price_id') > '0') 
-                           ? OrderPizzaPrice::create(array_merge($input, $request->only('pizza_quantity'))) 
+        $order_pizza_price = ($request->get('pizza_size_id') > '0') 
+                           ? OrderPizzaSize::create(array_merge($input, $request->only('pizza_quantity'))) 
                            : '';
         $order_drink_price = ($request->get('drink_price_id') > '0')
                            ? DrinkPriceOrder::create(array_merge($input, $request->only('drink_quantity')))
@@ -130,10 +131,10 @@ class OrderController extends Controller
             Session::flash('success', 'You have taken the order #'.$order->id);
         }
 
-        $order_pizza = OrderPizzaPrice::where('order_id', $id)->first();
+        $order_pizza = OrderPizzaSize::where('order_id', $id)->first();
         $order_drink = DrinkPriceOrder::where('order_id', $id)->first();
         
-        $pizza = ($order_pizza) ? $order_pizza->pizza_price->pizza : null;
+        $pizza = ($order_pizza) ? $order_pizza->pizza_size->pizza : null;
         $drink = ($order_drink) ? $order_drink->drink_price->drink : null;
 
         return view('order.show', compact('order', 'order_pizza', 'order_drink', 'pizza', 'drink'));
@@ -185,10 +186,10 @@ class OrderController extends Controller
             Session::flash('success', 'You have taken the order #'.$order->id);
         }
 
-        $order_pizza = OrderPizzaPrice::where('order_id', $id)->first();
+        $order_pizza = OrderPizzaSize::where('order_id', $id)->first();
         $order_drink = DrinkPriceOrder::where('order_id', $id)->first();
         
-        $pizza = ($order_pizza) ? $order_pizza->pizza_price->pizza : null;
+        $pizza = ($order_pizza) ? $order_pizza->pizza_size->pizza : null;
         $drink = ($order_drink) ? $order_drink->drink_price->drink : null;
 
         $driver = true;

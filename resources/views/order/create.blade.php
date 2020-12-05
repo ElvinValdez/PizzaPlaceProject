@@ -89,7 +89,6 @@
 		<div class="col s7">
 			<div class="row">
 				@foreach($pizzas as $pizza)
-				@if(isset($pizza->price))
 				<div class="col s6">
 					<div class="card">
 						<div class="card-image">
@@ -103,14 +102,15 @@
 								<div class="input-field col s12">
 									<select>
 										<option value="0" disabled selected>Size</option>
-										<option value="{{$pizza->price->id}}">{{ucfirst($pizza->size->name)}} ${{$pizza->price->price}}</option>
+										@foreach($pizza->sizes as $size)
+										<option value="{{$size->pivot->id}}">{{ucfirst($size->name)}} ${{$size->pivot->price}}</option>
+										@endforeach
 									</select>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				@endif
 				@endforeach
 			</div>
 			<h5>Drinks</h5>
@@ -171,7 +171,7 @@
 								<label for="total_price">Total</label>
 								<input id="total_price" type="text" disabled value="0">
 								<input type="hidden" id="pizzaqty" name="pizza_quantity" value="-1">
-								<input type="hidden" id="pizzaid" name="pizza_price_id" value="-1">
+								<input type="hidden" id="pizzaid" name="pizza_size_id" value="-1">
 								<input type="hidden" id="drinkid" name="drink_price_id" value="-1">
 								<input type="hidden" id="drinkqty" name="drink_quantity" value="-1">
 							</div>

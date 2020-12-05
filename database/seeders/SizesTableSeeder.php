@@ -28,6 +28,11 @@ class SizesTableSeeder extends Seeder
                     'name' => 'medium',
                     'description' => 'a 11 inches pizza',
                 ],
+                2 => [
+                    'id' => 3,
+                    'name' => 'small',
+                    'description' => 'a 8 inches pizza',
+                ]
             ]);
     }
 }

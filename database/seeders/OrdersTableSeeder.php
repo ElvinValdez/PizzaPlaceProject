@@ -24,6 +24,7 @@ class OrdersTableSeeder extends Seeder
                     'seller_user_id' => 7,
                     'order_status_id' => 1,
                     'address' => 'Sunny Estates, Gardnersville, NY', 
+                    'payment_method' => 'Cash On Delivery',
                     'time' => '2020-07-18 03:18:46', 
                 ],
                 [
@@ -32,6 +33,7 @@ class OrdersTableSeeder extends Seeder
                     'seller_user_id' => 7,
                     'order_status_id' => 1,
                     'address' => 'Dewy Bear Autoroute, Westville, NY', 
+                    'payment_method' => 'Cash On Delivery',
                     'time' => '2020-07-18 03:23:07', 
                 ],
                 [
@@ -40,6 +42,7 @@ class OrdersTableSeeder extends Seeder
                     'seller_user_id' => 3,
                     'order_status_id' => 1,
                     'address' => 'Fallen Brook Grove, West Sparta, NY', 
+                    'payment_method' => 'Cash On Delivery',
                     'time' => '2020-07-18 03:26:16', 
                 ],
                 [
@@ -48,6 +51,7 @@ class OrdersTableSeeder extends Seeder
                     'seller_user_id' => 3,
                     'order_status_id' => 1,
                     'address' => '21 jumpstreet', 
+                    'payment_method' => 'Cash On Delivery',
                     'time' => '2020-08-03 19:53:05', 
                 ],
                 [
@@ -56,6 +60,7 @@ class OrdersTableSeeder extends Seeder
                     'seller_user_id' => 3,
                     'order_status_id' => 1,
                     'address' => 'El Paso', 
+                    'payment_method' => 'Cash On Delivery',
                     'time' => '2020-08-03 20:56:39', 
                 ],
                 [
@@ -64,6 +69,7 @@ class OrdersTableSeeder extends Seeder
                     'seller_user_id' => 3,
                     'order_status_id' => 1,
                     'address' => 'Texas', 
+                    'payment_method' => 'Cash On Delivery',
                     'time' => '2020-08-03 22:12:15', 
                 ],
                 [
@@ -72,6 +78,7 @@ class OrdersTableSeeder extends Seeder
                     'seller_user_id' => 3,
                     'order_status_id' => 1,
                     'address' => '21 jumpstreet', 
+                    'payment_method' => 'Cash On Delivery',
                     'time' => '2020-09-03 15:20:54', 
                 ],                
             ]);
