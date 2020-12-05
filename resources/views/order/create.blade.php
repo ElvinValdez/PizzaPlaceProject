@@ -185,11 +185,11 @@
 									<ul class="p">
 										<li class="p">
 											<input class="p" type="checkbox" id="paypal_checkbox" name="payment_method" value="Paypal" />
-											<label for="paypal_checkbox" class="p"><img width="100" class="p" src="https://s3.cointelegraph.com/storage/uploads/view/3278bdc14c74dd4e85732b776d0e5b1d.png" /></label>
+											<label for="paypal_checkbox" class="p"><img width="100" class="p" src="{{asset('/img/paypal.webp')}}" /></label>
 										</li>
 										<li>
 											<input class="p" type="checkbox" id="cash_on_delivery" name="payment_method" value="Cash On Delivery" />
-										  	<label for="cash_on_delivery" class="p"><img width="100" class="p" src="https://image.flaticon.com/icons/png/512/2182/2182526.png" /></label>
+										  	<label for="cash_on_delivery" class="p"><img width="100" class="p" src="{{asset('/img/cod.png')}}" /></label>
 										</li>
 									</ul>
 								</div>
