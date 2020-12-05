@@ -17,12 +17,12 @@
 								<label for="name">Name</label>
 							</div>
 							<div class="input-field col s4">
-								<select class="@error('size_id') is-invalid @enderror" name="size_id">
+								<select class="@error('size_ids') is-invalid @enderror" name="size_ids[]" multiple>
 									@foreach($sizes as $size)
 									<option value="{{$size->id}}">{{$size->name}}</option>
 									@endforeach
 								</select>
-								@include('layouts.error', ['input' => 'size_id'])
+								@include('layouts.error', ['input' => 'size_ids'])
 								<label>Size</label>
 							</div>
 							<div class="input-field col s3">

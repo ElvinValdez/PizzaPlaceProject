@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Size;
 use App\Models\Pizza;
-use App\Models\PizzaPrice;
+use App\Models\PizzaSize;
 use Illuminate\Http\Request;
 use App\Http\Requests\PizzaCreateRequest;
 use App\Http\Requests\PizzaEditRequest;
@@ -43,6 +43,7 @@ class PizzaController extends Controller
     public function store(PizzaCreateRequest $request)
     {
         $input = $request->all();
+
         if ($request->hasFile('image')) {
             $image    = $request->file('image');
             $fileName = "/pizzas/" . md5(time()) . '.' . $image->getClientOriginalExtension();
@@ -51,9 +52,15 @@ class PizzaController extends Controller
             Storage::disk('public')->put($fileName, $img);
             $input['image'] = '/storage' . $fileName;
         }
+
         $pizza = Pizza::create($input);
         $input['pizza_id'] = $pizza->id;
-        $pizza_price = PizzaPrice::create($input);
+
+        foreach($input['size_ids'] as $size_id) {
+            $input['size_id'] = $size_id;
+            PizzaSize::create($input);
+        }
+
         return redirect()->to(route('dashboard')."#pizzas_and_drinks");
     }
 
@@ -103,8 +110,26 @@ class PizzaController extends Controller
             $input['image'] = '/storage' . $fileName;
         }
 
-        if (!empty($pizza))
+        $input['pizza_id'] = $pizza->id;
+
+        if (!empty($pizza)) {
+            foreach($pizza->sizes as $size) {
+                if (!in_array($size->id, $input['size_ids'])) {
+                    $pizzaSize = PizzaSize::where(['pizza_id' => $pizza->id, 'size_id' => $size->id, 'date' => NULL])->first();
+                    $pizzaSize->date = now();
+                    $pizzaSize->save();
+                }
+            }
+
+            foreach($input['size_ids'] as $size_id) {
+                $input['size_id'] = $size_id;
+                $pizzaSize = PizzaSize::where(['pizza_id' => $pizza->id, 'size_id' => $size_id, 'date' => NULL])->get();
+                if (count($pizzaSize) == 0)
+                    PizzaSize::create($input);
+            }
+
             $pizza->update($input);
+        }
 
         return redirect()->to(route('dashboard')."#pizzas_and_drinks");
     }

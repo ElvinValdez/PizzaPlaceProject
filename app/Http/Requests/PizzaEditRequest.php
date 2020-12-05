@@ -26,7 +26,7 @@ class PizzaEditRequest extends FormRequest
         return [
             'name' => 'required|string',
             'description' => 'required|max:255',
-            'size_id' => 'required|integer',
+            'size_ids' => 'required|array',
         ];
     }
 }
