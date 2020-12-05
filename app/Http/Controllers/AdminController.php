@@ -12,6 +12,7 @@ use App\Models\PizzaSize;
 use App\Models\DrinkPrice;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -53,6 +54,13 @@ class AdminController extends Controller
      */
     public function main()
     {
+        $user = Auth::user();
+
+        if ($user->hasRole('chef') || $user->hasRole('driver'))
+            return redirect()->route('orders.index');
+        if ($user->hasRole('cashier'))
+            return redirect()->route('dashboard');
+
         return redirect()->route('orders.create');
     }
 

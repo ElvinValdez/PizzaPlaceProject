@@ -41,6 +41,7 @@ class RoleHasPermissionsTableSeeder extends Seeder
             'orders.show',
             'orders.deliver',
             'orders.delivered',
+            'main',
         ];
 
         $permissions_for_chef = [
@@ -48,6 +49,7 @@ class RoleHasPermissionsTableSeeder extends Seeder
             'orders.update',
             'orders.show',
             'orders.destroy',
+            'main',
         ];
         
         foreach($permissions as $permission) {

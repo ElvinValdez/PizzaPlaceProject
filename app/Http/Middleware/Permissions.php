@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Spatie\Permission\Exceptions\UnauthorizedException;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Str;
@@ -31,15 +30,10 @@ class Permissions
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::user();
         $permission = $request->route()->getName();
         
-        if ($this->match($request->route()) && auth()->user()->canNot($permission)) {
-            if ($user->hasRole('chef') || $user->hasRole('driver'))
-                return redirect()->route('orders.index');
-            return redirect()->route('main');
-        }
-            //throw new UnauthorizedException(403, 'User does not have the permission: ' . $permission);
+        if ($this->match($request->route()) && auth()->user()->canNot($permission))
+            throw new UnauthorizedException(403, 'User does not have the permission: ' . $permission);
 
         return $next($request);
     }
