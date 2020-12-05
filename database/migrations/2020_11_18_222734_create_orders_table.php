@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('chef_user_id')->nullable();
             $table->unsignedBigInteger('order_status_id');
             $table->text('address')->nullable();
+            $table->string('payment_method');
             $table->timestamp('time')->nullable()->useCurrent();
             $table->timestamps();
 

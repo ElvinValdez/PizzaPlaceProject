@@ -18,6 +18,7 @@ class Order extends Model
         'chef_user_id',
         'order_status_id',
         'address',
+        'payment_method',
         'time',
     ];
 
