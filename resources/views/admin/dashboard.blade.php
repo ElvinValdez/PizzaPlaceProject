@@ -22,7 +22,6 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Description</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -30,7 +29,6 @@
                                 <tr>
                                     <td>{{$role->id}}</td>
                                     <td>{{$role->name}}</td>
-                                    <td>{{$role->description}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -231,12 +229,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($pizza_prices as $pizza_price)
+                            @foreach($pizza_sizes as $pizza_size)
                             <tr>
-                                <td>{{$pizza_price->pizza->name}}</td>
-                                <td>{{$pizza_price->pizza->size->name}}</td>
-                                <td>{{$pizza_price->price}}</td>
-                                <td><a href="{{route('pizza_prices.edit', ['pizza_price' => $pizza_price->id])}}" class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
+                                <td>{{$pizza_size->pizza->name}}</td>
+                                <td>{{$pizza_size->pizza->sizes_flatten}}</td>
+                                <td>{{$pizza_size->price}}</td>
+                                <td><a href="{{route('pizza_sizes.edit', ['pizza_size' => $pizza_size->id])}}" class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
                             </tr>
                             @endforeach
                             </tbody>
@@ -302,7 +300,7 @@
                             <tr>
                                 <td>{{$pizza->name}}</td>
                                 <td>{{$pizza->description}}</td>
-                                <td>{{$pizza->size->name}}</td>
+                                <td>{{$pizza->sizes_flatten}}</td>
                                 <td>
                                     <a class="waves-effect waves-light btn modal-trigger green darken-4" href="#modal-pizza-{{$pizza->id}}"><i class="material-icons">restaurant_menu</i></a>
                                     <!-- Modal Structure -->

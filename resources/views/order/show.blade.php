@@ -91,13 +91,13 @@
                                     <tbody>
                                     @php $total = 0; @endphp
                                     @if(isset($pizza))
-                                    @php $total = $order_pizza->pizza_price->price * $order_pizza->quantity; @endphp
+                                    @php $total = $order_pizza->pizza_size->price * $order_pizza->quantity; @endphp
                                     <tr>
-                                        <td>{{$order_pizza->pizza_price->pizza->name}}</td>
-                                        <td>{{$order_pizza->pizza_price->pizza->size->name}}</td>
+                                        <td>{{$order_pizza->pizza_size->pizza->name}}</td>
+                                        <td>{{$order_pizza->pizza_size->size->name}}</td>
                                         <td>{{$order_pizza->quantity}}</td>
-                                        <td>{{$order_pizza->pizza_price->price}}</td>
-                                        <td>{{$order_pizza->quantity * $order_pizza->pizza_price->price}}</td>
+                                        <td>{{$order_pizza->pizza_size->price}}</td>
+                                        <td>{{$order_pizza->quantity * $order_pizza->pizza_size->price}}</td>
                                     </tr>
                                     @endif
                                     @if(isset($drink))

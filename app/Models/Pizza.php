@@ -15,32 +15,27 @@ class Pizza extends Model
     public $fillable = [
         'name',
         'description',
-        'size_id',
         'image',
     ];
 
     public $appends = [
         'ingredients_flatten',
+        'sizes_flatten',
     ];
+
+    public function getSizesFlattenAttribute()
+    {
+        return implode(", ", Arr::flatten($this->belongsToMany('App\Models\Size')->where('date', '=', NULL)->pluck('name')));
+    }
 
     public function getIngredientsFlattenAttribute()
     {
         return implode(", ", Arr::flatten($this->belongsToMany('App\Models\Ingredient')->pluck('name')));
     }
 
-    public function prices()
+    public function sizes()
     {
-        return $this->hasMany('App\Models\PizzaPrice', 'pizza_id', 'id')->where('date', '!=', NULL);
-    }
-
-    public function price()
-    {
-        return $this->hasOne('App\Models\PizzaPrice', 'pizza_id', 'id')->where('date', '=', NULL);
-    }
-
-    public function size()
-    {
-        return $this->belongsTo('App\Models\Size');
+        return $this->belongsToMany('App\Models\Size')->where('date', '=', NULL)->withPivot(['id', 'price']);
     }
 
     public function ingredients()
