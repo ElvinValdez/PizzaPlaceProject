@@ -27,7 +27,6 @@ class DrinkEditRequest extends FormRequest
             'name' => 'required',
             'description' => 'required',
             'size' => 'required',
-            'price' => 'required',
         ];
     }
 }
