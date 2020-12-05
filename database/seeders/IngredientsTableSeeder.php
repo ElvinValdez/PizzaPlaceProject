@@ -91,6 +91,12 @@ class IngredientsTableSeeder extends Seeder
                     'unit_id' => 4,
                 ],
                 [
+                    'id' => 13, 
+                    'name' => 'yogurth',
+                    'description' => 'yogurth',
+                    'unit_id' => 3,
+                ],
+                [
                     'id' => 14, 
                     'name' => 'ham diced',
                     'description' => 'diced ham',
@@ -131,6 +137,24 @@ class IngredientsTableSeeder extends Seeder
                     'name' => 'parmesan',
                     'description' => 'parmesan cheese',
                     'unit_id' => 1,
+                ],
+                [
+                    'id' => 21, 
+                    'name' => 'blue cheese',
+                    'description' => 'blue cheese',
+                    'unit_id' => 1,
+                ],
+                [
+                    'id' => 22, 
+                    'name' => 'caramel',
+                    'description' => 'caramel',
+                    'unit_id' => 2,
+                ],
+                [
+                    'id' => 23,
+                    'name' => 'potatoes',
+                    'description' => 'potatoes',
+                    'unit_id' => 7,
                 ],
                 [
                     'id' => 24, 
