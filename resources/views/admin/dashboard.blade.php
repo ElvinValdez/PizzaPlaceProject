@@ -232,7 +232,7 @@
                             @foreach($pizza_sizes as $pizza_size)
                             <tr>
                                 <td>{{$pizza_size->pizza->name}}</td>
-                                <td>{{$pizza_size->pizza->sizes_flatten}}</td>
+                                <td>{{$pizza_size->size->name}}</td>
                                 <td>{{$pizza_size->price}}</td>
                                 <td><a href="{{route('pizza_sizes.edit', ['pizza_size' => $pizza_size->id])}}" class="waves-effect waves-light btn-small green darken-1"><i class="material-icons">edit</i></a></td>
                             </tr>

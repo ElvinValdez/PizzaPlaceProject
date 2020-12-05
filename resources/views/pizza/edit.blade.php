@@ -18,12 +18,12 @@
 								<label for="name">Name</label>
 							</div>
 							<div class="input-field col s6">
-								<select name="size_id" class="@error('size_id') is-invalid @enderror">
+								<select name="size_ids[]" class="@error('size_ids') is-invalid @enderror" multiple>
 									@foreach($sizes as $size)
-									<option value="{{$size->id}}" {{($pizza->size_id == $size->id)?'selected':''}}>{{$size->name}}</option>
+									<option value="{{$size->id}}" {{(in_array($size->id, $pizza->sizes->pluck('id')->toArray())) ? 'selected':''}}>{{$size->name}}</option>
 									@endforeach
 								</select>
-								@include('layouts.error', ['input' => 'size_id'])
+								@include('layouts.error', ['input' => 'size_ids'])
 								<label>Size</label>
 							</div>
 						</div>
