@@ -98,6 +98,7 @@ class OrderController extends Controller
         
         $input['customer_user_id'] = Auth::id();
         $input['seller_user_id']   = $seller->id;
+        $input['order_status_id']  = 1;
         $order = Order::create($input);
         $input['order_id'] = $order->id;
 

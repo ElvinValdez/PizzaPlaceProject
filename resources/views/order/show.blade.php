@@ -22,6 +22,62 @@
                         <h4>Order #{{$order->id}}</h4>
 						<div class="row">
 							<div class="modal-content">
+                                <div class="col s12 row" style="margin-top:1em">
+                                    <div class="col s12 row">
+                                        <div class="col s6 row">
+                                            <div class="col s4">
+                                                <span style="font-weight: bold">Customer</span>
+                                            </div>
+                                            <div class="col s8">
+                                                <span>{{($order->customer) ? $order->customer->first_name : ''}} {{($order->customer) ? $order->customer->last_name : ''}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col s6 row">
+                                            <div class="col s4">
+                                                <span style="font-weight: bold">Seller</span>
+                                            </div>
+                                            <div class="col s8">
+                                                <span>{{($order->seller) ? $order->seller->first_name : ''}} {{($order->seller) ? $order->seller->last_name : ''}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 row">
+                                        <div class="col s6 row">
+                                            <div class="col s4">
+                                                <span style="font-weight: bold">Driver</span>
+                                            </div>
+                                            <div class="col s8">
+                                                <span>{{($order->driver) ? $order->driver->first_name : ''}} {{($order->driver) ? $order->driver->last_name : ''}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col s6 row">
+                                            <div class="col s4">
+                                                <span style="font-weight: bold">Chef</span>
+                                            </div>
+                                            <div class="col s8">
+                                                <span>{{($order->chef) ? $order->chef->first_name : ''}} {{($order->chef) ? $order->chef->last_name : ''}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 row">
+                                        <div class="col s6 row">
+                                            <div class="col s4">
+                                                <span style="font-weight: bold">Address</span>
+                                            </div>
+                                            <div class="col s8">
+                                                <span>{{$order->address}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col s6 row">
+                                            <div class="col s4">
+                                                <span style="font-weight: bold">Payment</span>
+                                            </div>
+                                            <div class="col s8">
+                                                <span>{{$order->payment_method}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <table class="centered">
                                     <thead>
                                     <tr>

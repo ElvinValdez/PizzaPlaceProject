@@ -36,6 +36,7 @@
 								<th>Client</th>
 								<th>Seller</th>
 								<th>Address</th>
+								<th>Payment</th>
                                 <th></th>
 							</tr>
 						</thead>
@@ -48,6 +49,7 @@
 								<td>{{$order->customer->username}}</td>
 								<td>{{$order->seller->username}}</td>
 								<td>{{$order->address}}</td>
+								<td>{{$order->payment_method}}</td>
 								<td>
 								<a class="waves-effect waves-light btn modal-trigger green darken-4" href="#modal-order-{{$order->id}}"><i class="material-icons">visibility</i></a>
 								<!-- Modal Structure -->
@@ -129,6 +131,7 @@
 								<th>Client</th>
 								<th>Seller</th>
 								<th>Address</th>
+								<th>Payment</th>
                                 <th></th>
 							</tr>
 						</thead>
@@ -141,6 +144,7 @@
 								<td>{{$order->customer->username}}</td>
 								<td>{{$order->seller->username}}</td>
 								<td>{{$order->address}}</td>
+								<td>{{$order->payment_method}}</td>
 								<td>
 								<a class="waves-effect waves-light btn modal-trigger green darken-4" href="#modal-order-{{$order->id}}"><i class="material-icons">visibility</i></a>
 								<!-- Modal Structure -->
