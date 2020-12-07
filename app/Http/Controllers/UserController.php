@@ -45,7 +45,9 @@ class UserController extends Controller
         $input = $request->all();
         $input['api_token'] = Str::random(80);
         $input['password'] = Hash::make($input['password']);
+        $role = Role::find($input['role_id']);
         $user = User::create($input);
+        $user->assignRole($role->name);
         return redirect()->to(route('dashboard'). '#users_roles');
     }
 
@@ -84,10 +86,14 @@ class UserController extends Controller
     public function update(UserEditRequest $request, $id)
     {
         $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
         $user = User::find($id);
+        $role = Role::find($input['role_id']);
 
-        if (!empty($user))
+        if (!empty($user)) {
             $user->update($input);
+            $user->syncRoles([$role->name]);
+        }
 
         return redirect()->to(route('dashboard'). '#users_roles');
     }
