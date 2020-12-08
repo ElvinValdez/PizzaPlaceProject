@@ -70,6 +70,32 @@
   box-shadow: 0 0 5px #333;
   z-index: -1;
 }
+
+.ccard {
+	border: 1px solid lightgray;
+	padding: 2em;
+	margin: 0 2em;
+}
+
+.ccard input::placeholder {
+	color: #4f4e4e !important;
+}
+
+.ccardt {
+	margin: 0 2em;
+}
+
+.ccardtt { 
+	line-height: 24px;
+	font-size: 18px;
+	font-weight: 300;
+}
+
+.ccarttd {
+    height: 80px;
+    align-items: center;
+    display: flex;
+}
 </style>
 @endpush
 
@@ -148,7 +174,7 @@
 			<div class="row">
 				<div class="col s12">
 					<div class="card  yellow lighten-3">
-						<form method="POST" action="{{route('orders.store')}}">
+						<form method="POST" action="{{route('orders.store')}}" id="order_form">
 						@csrf
 						<div class="card-content ">
 							<span class="card-title">Your Order</span>
@@ -208,8 +234,54 @@
 								</div>
 							</div>
 						</div>
+						<!-- Modal Structure -->
+						<div id="payments" class="modal">
+							<div class="modal-content">
+								<div class="ccardt">
+									<div class="col s12 row">
+										<div class="col s6 ccarttd">
+											<div class="ccardtt" id="card_type"></div>
+										</div>
+										<div class="col s6 ccarttd">
+											<img width="100" class="" id="card_image" src="" style="margin:0 auto" />
+										</div>
+									</div>
+								</div>
+								<div class="col s12 row">
+									<div class="col s12">
+										<div class="ccard">
+											<div class="input-field">
+												<label for="card_number">Card Number</label>
+												<input type="text" id="card_number" name="card_number">
+											</div>
+											<div class="input-field">
+												<label for="exp_date">Exp Date ( MM / YY )</label>
+												<input type="text" id="exp_date" name="exp_date">
+											</div>
+											<div class="input-field">
+												<label for="security_code">Security Code</label>
+												<input type="text" id="security_code" name="security_code">
+											</div>
+											<div class="input-field">
+												<label for="amount" style="transform: none !important" id="amount_label"><i class="material-icons">attach_money</i> 0</label>
+												<input type="text" id="amount" readonly disabled>
+											</div>
+											<label for="indeterminate-checkbox">
+												<input type="checkbox" id="indeterminate-checkbox" name="save_card">
+												<span>Save card for future use</span>
+											</label>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="modal-close waves-effect waves-light btn green">Proceed</button>
+							</div>
+						</div>
 						<div class="card-action right-align">
-							<button type="submit" class="waves-effect waves-lite btn btn-small green darken-1" >Buy</button>
+							<!-- Modal Trigger -->
+							<a type="button" class="waves-effect waves-lite btn btn-small green darken-1 modal-trigger" href="#payments" id="test">Buy</a>
 						</div>
 						</form>
 					</div>
@@ -223,17 +295,55 @@
 @push('scripts')
 <script src="{{asset('js/sweetalert2.min.js')}}"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
+	document.addEventListener('DOMContentLoaded', function() {
+		$("#test").on('click', function(){
+			if ($("#cash_on_delivery").prop('checked')) {
+				$("#order_form").submit();
+				return false;
+			}
+			if (!$("#visa_checkbox").prop('checked') && !$("#mastercard_checkbox").prop('checked')) {
+				Swal.fire('Select a payment method');
+				return false;
+			}
+
+		})
+		const onOpenStart = (div) => {
+			div.style.maxHeight = "85%";
+			div.style.width = "500px";
+		}
+
+		var elems = document.querySelectorAll('.modal');
+		var instances = M.Modal.init(elems, {
+			onOpenStart: onOpenStart,
+			startingTop: '5%',
+		});
+	});
+	
+	$(document).ready(function() {
+		$("#cash_on_delivery").prop('checked', false);
+		$("#mastercard_checkbox").prop('checked', false);
+		$("#visa_checkbox").prop('checked', false);
+		
 		$("#visa_checkbox").change(function(){
 			if($(this).is(':checked')) {
 				$("#cash_on_delivery").prop('checked', false);
 				$("#mastercard_checkbox").prop('checked', false);
+				$("#card_type").text("Credit / Debit Card");
+				$("#card_image").prop('src', "{{asset('/img/visa.png')}}");
+			} else {
+				$("#card_type").text("");
+				$("#card_image").prop('src', "");
 			}
 		});
 		$("#mastercard_checkbox").change(function(){
 			if($(this).is(':checked')) {
 				$("#cash_on_delivery").prop('checked', false);
 				$("#visa_checkbox").prop('checked', false);
+				$("#card_type").text("Credit / Debit Card");
+				$("#card_image").prop('src', "{{asset('/img/mastercard.png')}}");
+			} else {
+				$("#card_type").text("");
+				$("#card_image").prop('src', "");
 			}
 		});
 		$("#cash_on_delivery").change(function(){
@@ -298,6 +408,7 @@
 	function calculateTotal(){
 		totalPrice = (pizzaQty*currentPizzaPrice) + (drinkQty*currentDrinkPrice);
 		document.getElementById("total_price").value = totalPrice+"";
+		document.getElementById("amount_label").innerHTML = '<i class="material-icons">attach_money</i> ' + totalPrice;
 		updateQuantities();
 	}
 
