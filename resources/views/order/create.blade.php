@@ -84,6 +84,15 @@
 		</div>
 	</div>
 	@endif
+	@if(Session::has('failure'))
+	<div class="row">
+		<div class="col s12">
+			<div class="card  red lighten-3" style="margin: 20px 20px; padding: 20px 20px;">
+				<div class="text-center">{{Session::get('failure')}}</div>
+			</div>
+		</div>
+	</div>
+	@endif
 	<img class="responsive-img" src="{{asset('/img/welcomeP.png')}}">
 	<div class="row">
 		<div class="col s7">
@@ -183,9 +192,13 @@
 								<label for="payment" class="p">Payment methods</label>
 								<div id="payment" style="margin-top:1em" class="p">
 									<ul class="p">
-										<li class="p">
-											<input class="p" type="checkbox" id="paypal_checkbox" name="payment_method" value="Paypal" />
-											<label for="paypal_checkbox" class="p"><img width="100" class="p" src="{{asset('/img/paypal.webp')}}" /></label>
+										<li>
+											<input class="p" type="checkbox" id="visa_checkbox" name="payment_method" value="Visa" />
+											<label for="visa_checkbox" class="p"><img width="100" class="p" src="{{asset('/img/visa.png')}}" /></label>
+										</li>
+										<li>
+											<input class="p" type="checkbox" id="mastercard_checkbox" name="payment_method" value="Mastercard" />
+											<label for="mastercard_checkbox" class="p"><img width="100" class="p" src="{{asset('/img/mastercard.png')}}" /></label>
 										</li>
 										<li>
 											<input class="p" type="checkbox" id="cash_on_delivery" name="payment_method" value="Cash On Delivery" />
@@ -211,13 +224,23 @@
 <script src="{{asset('js/sweetalert2.min.js')}}"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#paypal_checkbox").change(function(){
-			if($(this).is(':checked'))
+		$("#visa_checkbox").change(function(){
+			if($(this).is(':checked')) {
 				$("#cash_on_delivery").prop('checked', false);
+				$("#mastercard_checkbox").prop('checked', false);
+			}
+		});
+		$("#mastercard_checkbox").change(function(){
+			if($(this).is(':checked')) {
+				$("#cash_on_delivery").prop('checked', false);
+				$("#visa_checkbox").prop('checked', false);
+			}
 		});
 		$("#cash_on_delivery").change(function(){
-			if($(this).is(':checked'))
-				$("#paypal_checkbox").prop('checked', false);
+			if($(this).is(':checked')) {
+				$("#visa_checkbox").prop('checked', false);
+				$("#mastercard_checkbox").prop('checked', false);
+			}
 		});
 	});
 	document.addEventListener('DOMContentLoaded', function() {

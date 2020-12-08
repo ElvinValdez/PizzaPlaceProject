@@ -90,6 +90,12 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $input = $request->except(['pizza_quantity', 'drink_quantity']);
+        
+        if ($request->get('pizza_size_id') == '-1' && $request->get('drink_price_id') == '-1') {
+            Session::flash('failure', 'Please select an item');
+            return redirect()->route('orders.create');
+        }
+
         $seller = User::role('cashier')
                        ->select([DB::raw("COUNT('orders.seller_user_id') as times"), DB::raw('users.id')])            
                        ->leftJoin('orders', 'orders.seller_user_id', 'users.id')
