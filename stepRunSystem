@@ -1,0 +1,9 @@
+go to porject file in the terminal and run:
+composer install 
+cp .env.example .env
+now start xampp and run:
+php artisan key:generate
+cat .env
+now go to phpmyadmin
+now make a new database
+php artisan migrate --seed
